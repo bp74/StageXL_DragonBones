@@ -4,5 +4,8 @@ class DisplayArmature extends Display {
 
   // TODO: Implement DisplayArmature
 
-  DisplayArmature();
+  DisplayArmature(String name) : super(name);
+
+  @override
+  String toString() => "DisplayArmature '$name'";
 }

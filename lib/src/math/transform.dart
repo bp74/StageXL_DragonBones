@@ -9,5 +9,9 @@ class Transform {
   double scaleX = 1.0;
   double scaleY = 1.0;
 
-
+  @override
+  String toString() =>
+      "Transform x:$x, y:$y, "+
+      "skewX:$skewX, skewY:$skewY, "+
+      "scaleX:$scaleX, scaleY:$scaleY";
 }

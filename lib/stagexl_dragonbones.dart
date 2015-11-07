@@ -1,12 +1,12 @@
 library stagexl_dragonbones;
 
 import 'dart:convert';
+import 'dart:math' as math;
 import 'package:stagexl/stagexl.dart';
 
 part 'src/data/animation.dart';
 part 'src/data/animation_bone.dart';
 part 'src/data/animation_bone_frame.dart';
-part 'src/data/animation_frame.dart';
 part 'src/data/animation_slot.dart';
 part 'src/data/animation_slot_frame.dart';
 part 'src/data/armature.dart';
@@ -20,6 +20,7 @@ part 'src/display/display_armature.dart';
 part 'src/display/display_image.dart';
 
 part 'src/math/transform.dart';
+part 'src/parser/DragonBonesParserJson4.dart';
 
 part 'src/skeleton/skeleton.dart';
 part 'src/skeleton/skeleton_bone.dart';

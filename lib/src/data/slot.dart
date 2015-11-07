@@ -3,9 +3,13 @@ part of stagexl_dragonbones;
 class Slot {
 
   final String name;
-  final String parent;
-  final int z;
 
-  Slot(this.name, this.parent, this.z);
+  String parent = "";
+  int z = 0;
+
+  Slot(this.name);
+
+  @override
+  String toString() => "Slot '$name'";
 
 }

@@ -7,5 +7,6 @@ class AnimationSlot {
 
   AnimationSlot(this.name);
 
-
+  @override
+  String toString() => "AnimationSlot '$name'";
 }

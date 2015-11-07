@@ -2,8 +2,11 @@ part of stagexl_dragonbones;
 
 class DisplayImage extends Display {
 
-  final BitmapData bitmapData;
+  final Bitmap bitmap = new Bitmap();
 
-  DisplayImage(String name, this.bitmapData) : super(name);
+  DisplayImage(String name) : super(name);
+
+  @override
+  String toString() => "DisplayImage '$name'";
 
 }

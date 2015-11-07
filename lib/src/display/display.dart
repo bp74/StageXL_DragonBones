@@ -7,4 +7,6 @@ class Display {
 
   Display(this.name);
 
+  @override
+  String toString() => "Display '$name'";
 }
