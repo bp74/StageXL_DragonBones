@@ -42,6 +42,8 @@ Future main() async {
 
   var textureAtlas = resourceManager.getTextureAtlas("dragon");
   var skeleton = dragonBones.createSkeleton("Dragon", textureAtlas);
+  skeleton.x = 800;
+  skeleton.y = 500;
   stage.addChild(skeleton);
 
 }
