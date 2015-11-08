@@ -12,6 +12,17 @@ class Armature {
 
   //---------------------------------------------------------------------------
 
+  Animation getAnimation(String name) {
+    for(var animation in this.animations) {
+      if (animation.name == name) {
+        return animation;
+      }
+    }
+    return null;
+  }
+
+  //---------------------------------------------------------------------------
+
   @override
   String toString() => "Armature '$name'";
 

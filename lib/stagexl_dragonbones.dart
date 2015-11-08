@@ -21,7 +21,9 @@ part 'src/math/transform.dart';
 
 part 'src/skeleton/skeleton.dart';
 part 'src/skeleton/skeleton_bone.dart';
+part 'src/skeleton/skeleton_bone_animation.dart';
 part 'src/skeleton/skeleton_slot.dart';
+part 'src/skeleton/skeleton_slot_animation.dart';
 
 part 'src/dragon_bones.dart';
 part 'src/dragon_bones_parser_json4.dart';

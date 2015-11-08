@@ -84,19 +84,53 @@ class Transform {
     return _matrix;
   }
 
+
   //---------------------------------------------------------------------------
 
-  void tweenToMatrix(Transform target, double value, Matrix matrix) {
-    double scaleX = _scaleX + (target.scaleX - _scaleX) * value;
-    double scaleY = _scaleY + (target.scaleY - _scaleY) * value;
-    double skewX = _skewX + (target.skewX - _skewX) * value;
-    double skewY = _skewY + (target.skewY - _skewY) * value;
-    matrix.a = 0.0 + scaleX * math.cos(skewY);
-    matrix.b = 0.0 + scaleX * math.sin(skewY);
-    matrix.c = 0.0 - scaleY * math.sin(skewX);
-    matrix.d = 0.0 + scaleY * math.cos(skewX);
-    matrix.tx = _x + (target.x - _x) * value;
-    matrix.ty = _y + (target.y - _y) * value;
+  void reset() {
+    _x = 0.0;
+    _y = 0.0;
+    _skewX = 0.0;
+    _skewY = 0.0;
+    _scaleX = 1.0;
+    _scaleY = 1.0;
+    _refreshMatrix = true;
+  }
+
+  //---------------------------------------------------------------------------
+
+  void copyFrom(Transform t) {
+    _x = t.x;
+    _y = t.y;
+    _skewX = t.skewX;
+    _skewY = t.skewY;
+    _scaleX = t.scaleX;
+    _scaleY = t.scaleY;
+    _refreshMatrix = true;
+  }
+
+  //---------------------------------------------------------------------------
+
+  void tween(Transform t1, Transform t2, double value) {
+    _x = t1.x + (t2.x - t1.x) * value;
+    _y = t1.y + (t2.y - t1.y) * value;
+    _skewX = t1.skewX + (t2.skewX - t1.skewX) * value;
+    _skewY = t1.skewY + (t2.skewY - t1.skewY) * value;
+    _scaleX = t1.scaleX + (t2.scaleX - t1.scaleX) * value;
+    _scaleY = t1.scaleY + (t2.scaleY - t1.scaleY) * value;
+    _refreshMatrix = true;
+  }
+
+  //---------------------------------------------------------------------------
+
+  void append(Transform t) {
+    _x = _x + t.x;
+    _y = _y + t.y;
+    _skewX = _skewX + t.skewX;
+    _skewY = _skewY + t.skewY;
+    _scaleX = _scaleX * t.scaleX;
+    _scaleY = _scaleY * t.scaleY;
+    _refreshMatrix = true;
   }
 
   //---------------------------------------------------------------------------

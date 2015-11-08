@@ -44,6 +44,7 @@ Future main() async {
   var skeleton = dragonBones.createSkeleton("Dragon", textureAtlas);
   skeleton.x = 800;
   skeleton.y = 500;
+  skeleton.play("walk");
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

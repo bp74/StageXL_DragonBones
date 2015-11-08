@@ -18,6 +18,17 @@ class Animation {
 
   //---------------------------------------------------------------------------
 
+  AnimationBone getAnimationBone(String name) {
+    for(var animationBone in bones) {
+      if (animationBone.name == name) {
+        return animationBone;
+      }
+    }
+    return null;
+  }
+
+  //---------------------------------------------------------------------------
+
   @override
   String toString() => "Animation '$name'";
 }
