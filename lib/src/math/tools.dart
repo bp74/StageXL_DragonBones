@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-double getEaseValue(double value, double easing) {
+double _getEaseValue(double value, double easing) {
 
   double valueEase = 1.0;
 

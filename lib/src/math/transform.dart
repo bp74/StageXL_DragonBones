@@ -86,9 +86,35 @@ class Transform {
 
   //---------------------------------------------------------------------------
 
+  void tween(Transform a, Transform b, double value) {
+    _x = a.x + (b.x - a.x) * value;
+    _y = a.y + (b.y - a.y) * value;
+    _scaleX = a.scaleX + (b.scaleX - a.scaleX) * value;
+    _scaleY = a.scaleY + (b.scaleY - a.scaleY) * value;
+    _skewX = a.skewX + (b.skewX - a.skewX) * value;
+    _skewY = a.skewY + (b.skewY - a.skewY) * value;
+    _refreshMatrix = true;
+  }
+
+  void tweenToMatrix(Transform a, Transform b, double value, Matrix matrix) {
+    double scaleX = a.scaleX + (b.scaleX - a.scaleX) * value;
+    double scaleY = a.scaleY + (b.scaleY - a.scaleY) * value;
+    double skewX = a.skewX + (b.skewX - a.skewX) * value;
+    double skewY = a.skewY + (b.skewY - a.skewY) * value;
+    matrix.a = 0.0 + scaleX * math.cos(skewY);
+    matrix.b = 0.0 + scaleX * math.sin(skewY);
+    matrix.c = 0.0 - scaleY * math.sin(skewX);
+    matrix.d = 0.0 + scaleY * math.cos(skewX);
+    matrix.tx = a.x + (b.x - a.x) * value;
+    matrix.ty = a.y + (b.y - a.y) * value;
+  }
+
+  //---------------------------------------------------------------------------
+
   @override
   String toString() =>
       "Transform x:$x, y:$y, "+
       "skewX:$skewX, skewY:$skewY, "+
       "scaleX:$scaleX, scaleY:$scaleY";
 }
+
