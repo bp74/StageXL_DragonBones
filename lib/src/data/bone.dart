@@ -3,12 +3,13 @@ part of stagexl_dragonbones;
 class Bone {
 
   final String name;
+  final String parent;
+  final int length;
+  final Transform transform;
 
-  String parent = null;
-  int length = 0;
-  Transform transform = new Transform();
+  Bone(this.name, this.parent, this.length, this.transform);
 
-  Bone(this.name);
+  //---------------------------------------------------------------------------
 
   @override
   String toString() => "Bone '$name'";

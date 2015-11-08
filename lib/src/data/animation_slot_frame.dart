@@ -10,11 +10,17 @@ class AnimationSlotFrame {
   // (0, 1]  :ease out,
   // (1, 2]  :ease in out
 
-  int z = 0;
-  int duration = 0;
-  int tweenEasing = 0;
-  int displayIndex = 0;
+  final int duration;
+  final int tweenEasing;
+  final int displayIndex;
+  final int zOrder;
+  final ColorTransform colorTransform;
 
-  final ColorTransform colorTransform = new ColorTransform();
+  AnimationSlotFrame(
+      this.duration,
+      this.tweenEasing,
+      this.displayIndex,
+      this.zOrder,
+      this.colorTransform);
 
 }

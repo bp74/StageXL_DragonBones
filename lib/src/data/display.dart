@@ -4,9 +4,11 @@ class Display {
 
   final String name;
   final String type;
-  final Transform transform = new Transform();
+  final Transform transform;
 
-  Display(this.name, this.type);
+  Display(this.name, this.type, this.transform);
+
+  //---------------------------------------------------------------------------
 
   @override
   String toString() => "Display($type) '$name' ";

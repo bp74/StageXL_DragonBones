@@ -3,13 +3,20 @@ part of stagexl_dragonbones;
 class Animation {
 
   final String name;
-  final List<AnimationSlot> slots = new List<AnimationSlot>();
-  final List<AnimationBone> bones = new List<AnimationBone>();
+  final int duration;
+  final int playTimes;
 
-  int duration = 0;
-  int playTimes = 0;
+  final List<AnimationSlot> slots;
+  final List<AnimationBone> bones;
 
-  Animation(this.name);
+  Animation(
+      this.name,
+      this.duration,
+      this.playTimes,
+      this.bones,
+      this.slots);
+
+  //---------------------------------------------------------------------------
 
   @override
   String toString() => "Animation '$name'";

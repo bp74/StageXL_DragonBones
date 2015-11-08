@@ -3,12 +3,16 @@ part of stagexl_dragonbones;
 class Armature {
 
   final String name;
+  final List<Bone> bones;
+  final List<Slot> slots;
+  final List<Skin> skins;
+  final List<Animation> animations;
 
-  final List<Bone> bones = new List<Bone>();
-  final List<Slot> slots = new List<Slot>();
-  final List<Skin> skins = new List<Skin>();
-  final List<Animation> animations = new List<Animation>();
+  Armature(this.name, this.bones, this.slots, this.skins, this.animations);
 
-  Armature(this.name);
+  //---------------------------------------------------------------------------
+
+  @override
+  String toString() => "Armature '$name'";
 
 }

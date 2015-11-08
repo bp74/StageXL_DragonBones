@@ -10,10 +10,13 @@ class AnimationBoneFrame {
   // (0, 1]  :ease out,
   // (1, 2]  :ease in out
 
-  int duration = 0;
-  int tweenEasing = 0;
+  final int duration;
+  final int tweenEasing;
+  final Transform transform;
 
-  final Transform transform = new Transform();
-
+  AnimationBoneFrame(
+      this.duration,
+      this.tweenEasing,
+      this.transform);
 
 }

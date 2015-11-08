@@ -3,9 +3,11 @@ part of stagexl_dragonbones;
 class AnimationBone {
 
   final String name;
-  final List<AnimationBoneFrame> frames = new List<AnimationBoneFrame>();
+  final List<AnimationBoneFrame> frames;
 
-  AnimationBone(this.name);
+  AnimationBone(this.name, this.frames);
+
+  //---------------------------------------------------------------------------
 
   @override
   String toString() => "AnimationBone '$name'";

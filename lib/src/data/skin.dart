@@ -3,9 +3,9 @@ part of stagexl_dragonbones;
 class Skin {
 
   final String name;
-  final List<SkinSlot> slots = new List<SkinSlot>();
+  final List<SkinSlot> slots;
 
-  Skin(this.name);
+  Skin(this.name, this.slots);
 
   @override
   String toString() => "Skin '$name'";

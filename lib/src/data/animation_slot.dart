@@ -3,9 +3,11 @@ part of stagexl_dragonbones;
 class AnimationSlot {
 
   final String name;
-  final List<AnimationSlotFrame> frames = new List<AnimationSlotFrame>();
+  final List<AnimationSlotFrame> frames;
 
-  AnimationSlot(this.name);
+  AnimationSlot(this.name, this.frames);
+
+  //---------------------------------------------------------------------------
 
   @override
   String toString() => "AnimationSlot '$name'";
