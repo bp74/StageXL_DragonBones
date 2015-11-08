@@ -2,69 +2,72 @@ part of stagexl_dragonbones;
 
 class Transform {
 
-  double _x = 0.0;
-  double _y = 0.0;
-  double _skewX = 0.0;
-  double _skewY = 0.0;
-  double _scaleX = 1.0;
-  double _scaleY = 1.0;
-
-  bool _refreshMatrix = true;
+  final Float32List _data = new Float32List(6);
   final Matrix _matrix = new Matrix.fromIdentity();
+  bool _refreshMatrix = true;
+
+  Transform() {
+    this.x = 0.0;
+    this.y = 0.0;
+    this.skewX = 0.0;
+    this.skewY = 0.0;
+    this.scaleX = 1.0;
+    this.scaleY = 1.0;
+  }
 
   //---------------------------------------------------------------------------
 
   /// Position on the x axis.
 
-  double get x => _x;
+  double get x => _data[0];
 
   set x(double value) {
-    _x = value;
+    _data[0] = value;
     _refreshMatrix = true;
   }
 
   /// Position on the y axis.
 
-  double get y => _y;
+  double get y => _data[1];
 
   set y(double value) {
-    _y = value;
+    _data[1] = value;
     _refreshMatrix = true;
   }
 
   //  skew on the x axis.
 
-  double get skewX => _skewX;
+  double get skewX => _data[2];
 
   set skewX(double value) {
-    _skewX = value;
+    _data[2] = value;
     _refreshMatrix = true;
   }
 
   /// skew on the y axis.
 
-  double get skewY => _skewY;
+  double get skewY => _data[3];
 
   set skewY(double value) {
-    _skewY = value;
+    _data[3] = value;
     _refreshMatrix = true;
   }
 
   /// Scale on the x axis.
 
-  double get scaleX => _scaleX;
+  double get scaleX => _data[4];
 
   set scaleX(double value) {
-    _scaleX = value;
+    _data[4] = value;
     _refreshMatrix = true;
   }
 
   /// Scale on the y axis.
 
-  double get scaleY => _scaleY;
+  double get scaleY => _data[5];
 
   set scaleY(double value) {
-    _scaleY = value;
+    _data[5] = value;
     _refreshMatrix = true;
   }
 
@@ -84,52 +87,51 @@ class Transform {
     return _matrix;
   }
 
-
   //---------------------------------------------------------------------------
 
   void reset() {
-    _x = 0.0;
-    _y = 0.0;
-    _skewX = 0.0;
-    _skewY = 0.0;
-    _scaleX = 1.0;
-    _scaleY = 1.0;
+    _data[0] = 0.0;
+    _data[1] = 0.0;
+    _data[2] = 0.0;
+    _data[3] = 0.0;
+    _data[4] = 1.0;
+    _data[5] = 1.0;
     _refreshMatrix = true;
   }
 
   //---------------------------------------------------------------------------
 
   void copyFrom(Transform t) {
-    _x = t.x;
-    _y = t.y;
-    _skewX = t.skewX;
-    _skewY = t.skewY;
-    _scaleX = t.scaleX;
-    _scaleY = t.scaleY;
+    _data[0] = t.x;
+    _data[1] = t.y;
+    _data[2] = t.skewX;
+    _data[3] = t.skewY;
+    _data[4] = t.scaleX;
+    _data[5] = t.scaleY;
     _refreshMatrix = true;
   }
 
   //---------------------------------------------------------------------------
 
   void tween(Transform t1, Transform t2, double value) {
-    _x = t1.x + (t2.x - t1.x) * value;
-    _y = t1.y + (t2.y - t1.y) * value;
-    _skewX = t1.skewX + (t2.skewX - t1.skewX) * value;
-    _skewY = t1.skewY + (t2.skewY - t1.skewY) * value;
-    _scaleX = t1.scaleX + (t2.scaleX - t1.scaleX) * value;
-    _scaleY = t1.scaleY + (t2.scaleY - t1.scaleY) * value;
+    _data[0] = t1.x + (t2.x - t1.x) * value;
+    _data[1] = t1.y + (t2.y - t1.y) * value;
+    _data[2] = t1.skewX + (t2.skewX - t1.skewX) * value;
+    _data[3] = t1.skewY + (t2.skewY - t1.skewY) * value;
+    _data[4] = t1.scaleX + (t2.scaleX - t1.scaleX) * value;
+    _data[5] = t1.scaleY + (t2.scaleY - t1.scaleY) * value;
     _refreshMatrix = true;
   }
 
   //---------------------------------------------------------------------------
 
   void append(Transform t) {
-    _x = _x + t.x;
-    _y = _y + t.y;
-    _skewX = _skewX + t.skewX;
-    _skewY = _skewY + t.skewY;
-    _scaleX = _scaleX * t.scaleX;
-    _scaleY = _scaleY * t.scaleY;
+    _data[0] += t.x;
+    _data[1] += t.y;
+    _data[2] += t.skewX;
+    _data[3] += t.skewY;
+    _data[4] *= t.scaleX;
+    _data[5] *= t.scaleY;
     _refreshMatrix = true;
   }
 

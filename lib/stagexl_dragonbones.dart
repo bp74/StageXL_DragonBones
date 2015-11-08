@@ -2,6 +2,7 @@ library stagexl_dragonbones;
 
 import 'dart:convert';
 import 'dart:math' as math;
+import 'dart:typed_data';
 import 'package:stagexl/stagexl.dart';
 
 part 'src/data/animation.dart';
