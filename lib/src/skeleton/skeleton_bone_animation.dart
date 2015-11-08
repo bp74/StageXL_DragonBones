@@ -19,25 +19,20 @@ class SkeletonBoneAnimation {
 
     for(int i = 0; i < frames.length - 1; i++) {
 
-      var animationBoneFrame1 = frames[i + 0];
-      var animationBoneFrame2 = frames[i + 1];
-      var frameEnd = frameOffset + animationBoneFrame1.duration;
+      var frame0 = frames[i + 0];
+      var frame1 = frames[i + 1];
+      var frameDuration = frame0.duration;
+      var frameEnd = frameOffset + frameDuration;
 
       if (framePosition >= frameOffset && framePosition < frameEnd) {
-
-        var duration = animationBoneFrame1.duration;
-        var tweenEasing = animationBoneFrame1.tweenEasing ?? 0.0;
-        var progress = (framePosition - frameOffset) / duration;
+        var tweenEasing = frame0.tweenEasing ?? 0.0;
+        var progress = (framePosition - frameOffset) / frameDuration;
         var easeValue = _getEaseValue(progress, tweenEasing);
-
-        var t1 = animationBoneFrame1.transform;
-        var t2 = animationBoneFrame2.transform;
-
-        transform.tween(t1, t2, easeValue);
+        transform.tween(frame0.transform, frame1.transform, easeValue);
         return;
+      } else {
+        frameOffset = frameEnd;
       }
-
-      frameOffset += animationBoneFrame1.duration;
     }
 
     transform.reset();
