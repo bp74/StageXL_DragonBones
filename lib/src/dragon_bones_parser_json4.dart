@@ -82,14 +82,14 @@ class _DragonBonesParserJson4 {
   static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
     return new AnimationBoneFrame(
         _getInt(data, "duration", 0),
-        _getIntNull(data, "tweenEasing", 10),
+        _getDoubleOrNull(data, "tweenEasing", 10),
         _getTransform(data, "transform"));
   }
 
   static AnimationSlotFrame _parseAnimationSlotFrame(Map data) {
     return new AnimationSlotFrame(
         _getInt(data, "duration", 0),
-        _getIntNull(data, "tweenEasing", 10),
+        _getDoubleOrNull(data, "tweenEasing", 10),
         _getInt(data, "displayIndex", 0),
         _getInt(data, "z", 0),
         _getColorTransform(data, "color"));
@@ -142,9 +142,9 @@ class _DragonBonesParserJson4 {
     throw new StateError("Invalid type for key '$key'");
   }
 
-  static int _getIntNull(Map data, String key, int defaultValue) {
+  static double _getDoubleOrNull(Map data, String key, int defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
-    if (value is int) return value;
+    if (value is num) return value.toDouble();
     if (value == null) return null;
     throw new StateError("Invalid type for key '$key'");
   }

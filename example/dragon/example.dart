@@ -8,7 +8,7 @@ Future main() async {
 
   // configure StageXL default options
 
-  StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
+  StageXL.stageOptions.renderEngine = RenderEngine.Canvas2D;
   StageXL.stageOptions.backgroundColor = Color.AliceBlue;
   StageXL.bitmapDataLoadOptions.webp = false;
 
@@ -35,7 +35,7 @@ Future main() async {
   textField.x = 300;
   textField.y = 900;
   textField.text = "tap to change animation";
-  textField.addTo(stage);
+//  textField.addTo(stage);
 
   var dragonBonesJson = resourceManager.getTextFile("dragon");
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
@@ -44,6 +44,7 @@ Future main() async {
   var skeleton = dragonBones.createSkeleton("Dragon", textureAtlas);
   skeleton.x = 800;
   skeleton.y = 500;
+  stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 
 }

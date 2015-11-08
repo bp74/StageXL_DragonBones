@@ -11,7 +11,7 @@ class AnimationBoneFrame {
   // (1, 2]  :ease in out
 
   final int duration;
-  final int tweenEasing;
+  final double tweenEasing;
   final Transform transform;
 
   AnimationBoneFrame(

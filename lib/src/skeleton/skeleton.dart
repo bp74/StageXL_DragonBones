@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class Skeleton extends InteractiveObject {
+class Skeleton extends InteractiveObject implements Animatable {
 
   final Armature armature;
   final TextureAtlas textureAtlas;
@@ -8,8 +8,51 @@ class Skeleton extends InteractiveObject {
   final List<SkeletonBone> _skeletonBones = new List<SkeletonBone>();
   final List<SkeletonSlot> _skeletonSlots = new List<SkeletonSlot>();
 
+  double _time = 0.0;
+
   Skeleton(this.armature, this.textureAtlas) {
     _buildSkeletonBones();
+  }
+
+  //---------------------------------------------------------------------------
+
+  bool advanceTime(num deltaTime) {
+
+    // TODO: this is just a prrof of concept implementation
+    // TODO: get framerate from dragon bones file
+    // TODO: play custom animation
+
+    var oldTime = _time;
+    var newTime = _time + deltaTime * 0.5;
+    var animation = this.armature.animations[1];
+    var frameRate = 24;
+
+    for(var skeletonBone in _skeletonBones) {
+
+      var name = skeletonBone.bone.name;
+      var animationBone = animation.bones.firstWhere((ab) => ab.name == name);
+      var framePosition = (newTime * frameRate) % animation.duration;
+      var frameOffset = 0.0;
+
+      for(int i = 0; i < animationBone.frames.length - 1; i++) {
+        var animationBoneFrame1 = animationBone.frames[i + 0];
+        var animationBoneFrame2 = animationBone.frames[i + 1];
+        var frameEnd = frameOffset + animationBoneFrame1.duration;
+        if (framePosition >= frameOffset && framePosition < frameEnd) {
+          var duration = animationBoneFrame1.duration;
+          var tweenEasing = animationBoneFrame1.tweenEasing;
+          var transform1 = animationBoneFrame1.transform;
+          var transform2 = animationBoneFrame2.transform;
+          var progress = (framePosition - frameOffset) / duration;
+          var easeValue = _getEaseValue(progress, tweenEasing ?? 0.0);
+          skeletonBone._updateWorldMatrix(transform1, transform2, easeValue);
+        }
+        frameOffset += animationBoneFrame1.duration;
+      }
+    }
+
+    _time = newTime;
+    return true;
   }
 
   //---------------------------------------------------------------------------
@@ -27,10 +70,6 @@ class Skeleton extends InteractiveObject {
       var skeletonBone = new SkeletonBone(bone, parent);
       map[bone.name] = skeletonBone;
       skeletonBones.add(skeletonBone);
-    }
-
-    for (var skeletonBone in skeletonBones) {
-      skeletonBone._updateWorldMatrix();
     }
   }
 
@@ -61,6 +100,8 @@ class Skeleton extends InteractiveObject {
       newRenderState.globalMatrix.concat(globalMatrix);
       var l = skeletonBone.bone.length;
       newRenderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
+      newRenderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
+      newRenderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
     }
   }
 
