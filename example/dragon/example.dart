@@ -32,17 +32,17 @@ Future main() async {
   textField.defaultTextFormat = new TextFormat("Arial", 40, Color.Black);
   textField.defaultTextFormat.align = TextFormatAlign.CENTER;
   textField.width = 1000;
-  textField.x = 0;
+  textField.x = 300;
   textField.y = 900;
   textField.text = "tap to change animation";
   textField.addTo(stage);
 
-  var json = resourceManager.getTextFile("dragon");
+  var dragonBonesJson = resourceManager.getTextFile("dragon");
+  var dragonBones = DragonBones.fromJson(dragonBonesJson);
+
   var textureAtlas = resourceManager.getTextureAtlas("dragon");
-  var dragonBones = DragonBones.fromJson(json, textureAtlas);
-
-  var armature = dragonBones.getArmature("Dragon");
-
+  var skeleton = dragonBones.createSkeleton("Dragon", textureAtlas);
+  stage.addChild(skeleton);
 
 }
 

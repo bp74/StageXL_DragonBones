@@ -4,7 +4,7 @@ class Slot {
 
   final String name;
 
-  String parent = "";
+  String parent = null;
   int z = 0;
 
   Slot(this.name);

@@ -11,16 +11,13 @@ part 'src/data/animation_slot.dart';
 part 'src/data/animation_slot_frame.dart';
 part 'src/data/armature.dart';
 part 'src/data/bone.dart';
+part 'src/data/display.dart';
 part 'src/data/skin.dart';
 part 'src/data/skin_slot.dart';
 part 'src/data/slot.dart';
 
-part 'src/display/display.dart';
-part 'src/display/display_armature.dart';
-part 'src/display/display_image.dart';
-
 part 'src/math/transform.dart';
-part 'src/parser/DragonBonesParserJson4.dart';
+part 'src/parser/dragon_bones_parser_json4.dart';
 
 part 'src/skeleton/skeleton.dart';
 part 'src/skeleton/skeleton_bone.dart';

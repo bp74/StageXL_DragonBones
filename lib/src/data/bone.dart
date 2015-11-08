@@ -4,7 +4,7 @@ class Bone {
 
   final String name;
 
-  String parent = "";
+  String parent = null;
   int length = 0;
   Transform transform = new Transform();
 

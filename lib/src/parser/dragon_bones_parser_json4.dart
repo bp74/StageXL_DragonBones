@@ -60,14 +60,7 @@ class _DragonBonesParserJson4 {
   static Display _parseDisplay(Map data) {
     var name = _getString(data, "name", "");
     var type = _getString(data, "type", "");
-    Display display = null;
-    if (type == "image") {
-      display = new DisplayImage(name);
-    } else if (type == "armature") {
-      display = new DisplayArmature(name);
-    } else {
-      throw new StateError("Unsupported display type");
-    }
+    var display = new Display(name, type);
     _setTransform(data, display.transform);
     return display;
   }
@@ -107,16 +100,18 @@ class _DragonBonesParserJson4 {
 
   static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
     var animationBoneFrame = new AnimationBoneFrame();
-    animationBoneFrame.tweenEasing = _getIntNull(data, "tweenEasing", 10);
     animationBoneFrame.duration = _getInt(data, "duration", 0);
+    animationBoneFrame.tweenEasing = _getIntNull(data, "tweenEasing", 10);
     _setTransform(data, animationBoneFrame.transform);
     return animationBoneFrame;
   }
 
   static AnimationSlotFrame _parseAnimationSlotFrame(Map data) {
     var animationSlotFrame = new AnimationSlotFrame();
-    animationSlotFrame.tweenEasing = _getIntNull(data, "tweenEasing", 10);
+    animationSlotFrame.z = _getInt(data, "z", 0);
     animationSlotFrame.duration = _getInt(data, "duration", 0);
+    animationSlotFrame.tweenEasing = _getIntNull(data, "tweenEasing", 10);
+    animationSlotFrame.displayIndex = _getInt(data, "displayIndex", 0);
     _setColorTransform(data, animationSlotFrame.colorTransform);
     return animationSlotFrame;
   }
