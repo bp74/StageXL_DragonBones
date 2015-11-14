@@ -9,9 +9,27 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   double _time = 0.0;
 
+  //---------------------------------------------------------------------------
+
   Skeleton(this.armature) {
-    _buildSkeletonBones();
-    _buildSkeletonSlots();
+
+    var map = new Map<String, SkeletonBone>();
+
+    // this assumes that armature bones are sorted by depth
+    // otherwise the parents of the skeletonBones are wrong.
+
+    for (var bone in armature.bones) {
+      var parent = map.containsKey(bone.parent) ? map[bone.parent] : null;
+      var skeletonBone = new SkeletonBone(bone, parent);
+      map[bone.name] = skeletonBone;
+      _skeletonBones.add(skeletonBone);
+    }
+
+    for (var slot in armature.slots) {
+      var parent = map.containsKey(slot.parent) ? map[slot.parent] : null;
+      var skeletonSlot = new SkeletonSlot(slot, parent);
+      _skeletonSlots.add(skeletonSlot);
+    }
   }
 
   //---------------------------------------------------------------------------
@@ -115,41 +133,6 @@ class Skeleton extends InteractiveObject implements Animatable {
       newRenderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
       newRenderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
       newRenderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
-    }
-  }
-
-  //---------------------------------------------------------------------------
-
-  void _buildSkeletonBones() {
-
-    var map = new Map<String, SkeletonBone>();
-    var skeletonBones = _skeletonBones;
-
-    // this assumes that armature bones are sorted by depth
-    // otherwise the parents of the skeletonBones are wrong.
-
-    for (var bone in this.armature.bones) {
-      var parent = map.containsKey(bone.parent) ? map[bone.parent] : null;
-      var skeletonBone = new SkeletonBone(bone, parent);
-      map[bone.name] = skeletonBone;
-      skeletonBones.add(skeletonBone);
-    }
-  }
-
-  void _buildSkeletonSlots() {
-
-    var map = new Map<String, SkeletonBone>();
-    var skeletonBones = _skeletonBones;
-    var skeletonSlots = _skeletonSlots;
-
-    for (var skeletonBone in skeletonBones) {
-      map[skeletonBone.bone.name] = skeletonBone;
-    }
-
-    for (var slot in this.armature.slots) {
-      var parent = map.containsKey(slot.parent) ? map[slot.parent] : null;
-      var skeletonSlot = new SkeletonSlot(slot, parent);
-      skeletonSlots.add(skeletonSlot);
     }
   }
 
