@@ -3,6 +3,10 @@ StageXL_DragonBones
 
 The DragonBones runtime for the StageXL library.
 
+DragonBones is an open source 2D skeleton animation solution very popular among Flash and Starling developers. 
+The editor is available for Mac and Windows and does not require Adobe Flash Pro.
+Find more information here: <https://dragonbones.github.io/>
+
 ##Examples
 
 http://www.stagexl.org/show/dragonbones/dragon/example.html
