@@ -32,7 +32,10 @@ class SkeletonSlot {
   //---------------------------------------------------------------------------
 
   void render(RenderState renderState) {
-    displays.first.render(renderState);
+    if (displays.length > 0) {
+      // TODO: show display according slot animation
+      displays.first.render(renderState);
+    }
   }
 
 }

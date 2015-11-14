@@ -7,6 +7,9 @@ class Skeleton extends InteractiveObject implements Animatable {
   final List<SkeletonBone> _skeletonBones = new List<SkeletonBone>();
   final List<SkeletonSlot> _skeletonSlots = new List<SkeletonSlot>();
 
+  bool showBones = false;
+  bool showSlots = true;
+
   double _time = 0.0;
 
   //---------------------------------------------------------------------------
@@ -60,8 +63,10 @@ class Skeleton extends InteractiveObject implements Animatable {
 
     for (var skeletonSlot in _skeletonSlots) {
 
-      var skinSlot = skin.getSkinSlot(skeletonSlot.slot.name);
       skeletonSlot.displays.clear();
+
+      var skinSlot = skin.getSkinSlot(skeletonSlot.slot.name);
+      if (skinSlot == null) continue;
 
       for (var display in skinSlot.displays) {
         if (display.type == "image") {
@@ -87,6 +92,7 @@ class Skeleton extends InteractiveObject implements Animatable {
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
       var animationBone = animation.getAnimationBone(boneName);
+      if (animationBone == null) continue;
       var sba = new SkeletonBoneAnimation(animation, animationBone);
       skeletonBone.addSkeletonBoneAnimation(sba);
     }
@@ -94,6 +100,7 @@ class Skeleton extends InteractiveObject implements Animatable {
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
       var animationSlot = animation.getAnimationSlot(slotName);
+      if (animationSlot == null) continue;
       var ssa = new SkeletonSlotAnimation(animation, animationSlot);
       skeletonSlot.addSkeletonSlotAnimation(ssa);
     }
@@ -120,19 +127,23 @@ class Skeleton extends InteractiveObject implements Animatable {
     var globalMatrix = renderState.globalMatrix;
     var newRenderState = new RenderState(renderContext);
 
-    for (var skeletonSlot in _skeletonSlots) {
-      newRenderState.globalMatrix.copyFrom(skeletonSlot.worldMatrix);
-      newRenderState.globalMatrix.concat(globalMatrix);
-      skeletonSlot.render(newRenderState);
+    if (showSlots) {
+      for (var skeletonSlot in _skeletonSlots) {
+        newRenderState.globalMatrix.copyFrom(skeletonSlot.worldMatrix);
+        newRenderState.globalMatrix.concat(globalMatrix);
+        skeletonSlot.render(newRenderState);
+      }
     }
 
-    for (var skeletonBone in _skeletonBones) {
-      newRenderState.globalMatrix.copyFrom(skeletonBone.worldMatrix);
-      newRenderState.globalMatrix.concat(globalMatrix);
-      var l = skeletonBone.bone.length;
-      newRenderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
-      newRenderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
-      newRenderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
+    if (showBones) {
+      for (var skeletonBone in _skeletonBones) {
+        newRenderState.globalMatrix.copyFrom(skeletonBone.worldMatrix);
+        newRenderState.globalMatrix.concat(globalMatrix);
+        var l = skeletonBone.bone.length;
+        newRenderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
+        newRenderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
+        newRenderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
+      }
     }
   }
 

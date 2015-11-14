@@ -26,12 +26,18 @@ class DragonBones {
 
   //---------------------------------------------------------------------------
 
-  Armature getArmature(String name) {
-    return armatures.firstWhere((a) => a.name == name);
+  Armature getArmature(String armatureName) {
+    for(var armature in armatures) {
+      if (armature.name == armatureName) {
+        return armature;
+      }
+    }
+    return null;
   }
 
   Skeleton createSkeleton(String armatureName) {
     var armature = this.getArmature(armatureName);
+    if (armature == null) throw new ArgumentError("armatureName");
     return new Skeleton(armature);
   }
 
