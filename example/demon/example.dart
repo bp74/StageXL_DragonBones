@@ -10,7 +10,7 @@ Future main() async {
 
   StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
   StageXL.stageOptions.backgroundColor = Color.AliceBlue;
-  StageXL.bitmapDataLoadOptions.webp = false;
+  StageXL.bitmapDataLoadOptions.webp = true;
 
   // init Stage and RenderLoop
 
@@ -35,8 +35,10 @@ Future main() async {
 
   skeleton.setSkin(textureAtlas);
   skeleton.play("run");
+  skeleton.play("stun");
   skeleton.x = 320;
   skeleton.y = 600;
+  skeleton.showBones = true;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

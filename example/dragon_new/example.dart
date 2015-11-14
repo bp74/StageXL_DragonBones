@@ -15,7 +15,7 @@ Future main() async {
   // init Stage and RenderLoop
 
   var canvas = html.querySelector('#stage');
-  var stage = new Stage(canvas, width: 800, height: 900);
+  var stage = new Stage(canvas, width: 1000, height: 700);
   var renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
 
@@ -23,20 +23,21 @@ Future main() async {
 
   var resourceManager = new ResourceManager();
   resourceManager.addTextureAtlas("dragonTexture", "assets/texture.json");
-  resourceManager.addTextFile("dragonJson", "assets/dragon.json");
+  resourceManager.addTextFile("dragonJson", "assets/dragon_new.json");
   await resourceManager.load();
 
-  // create a skeleton and play the "walk" animation
+  // create a skeleton and play the "stand" animation
 
   var textureAtlas = resourceManager.getTextureAtlas("dragonTexture");
   var dragonBonesJson = resourceManager.getTextFile("dragonJson");
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-  var skeleton = dragonBones.createSkeleton("Dragon");
+  var skeleton = dragonBones.createSkeleton("armatureName");
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("walk");
-  skeleton.x = 300;
-  skeleton.y = 500;
+  skeleton.play("stand");
+  skeleton.x = 430;
+  skeleton.y = 520;
+  skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

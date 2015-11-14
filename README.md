@@ -5,7 +5,8 @@ The DragonBones runtime for the StageXL library.
 
 ##Examples
 
-http://www.stagexl.org/temp/dragon/example.html
+http://www.stagexl.org/show/dragonbones/dragon/example.html
+http://www.stagexl.org/show/dragonbones/dragon_new/example.html
 
 ##Runtime
 
