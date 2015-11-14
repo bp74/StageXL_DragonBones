@@ -30,9 +30,9 @@ class DragonBones {
     return armatures.firstWhere((a) => a.name == name);
   }
 
-  Skeleton createSkeleton(String armatureName, TextureAtlas textureAtlas) {
+  Skeleton createSkeleton(String armatureName) {
     var armature = this.getArmature(armatureName);
-    return new Skeleton(armature, textureAtlas);
+    return new Skeleton(armature);
   }
 
 }

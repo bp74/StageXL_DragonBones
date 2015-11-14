@@ -12,10 +12,19 @@ class Armature {
 
   //---------------------------------------------------------------------------
 
-  Animation getAnimation(String name) {
-    for(var animation in this.animations) {
-      if (animation.name == name) {
+  Animation getAnimation(String animationName) {
+    for (var animation in this.animations) {
+      if (animation.name == animationName) {
         return animation;
+      }
+    }
+    return null;
+  }
+
+  Skin getSkin(String skinName) {
+    for (var skin in this.skins) {
+      if (skin.name == skinName) {
+        return skin;
       }
     }
     return null;

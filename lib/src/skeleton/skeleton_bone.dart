@@ -6,12 +6,12 @@ class SkeletonBone {
   final SkeletonBone parent;
   final Matrix worldMatrix = new Matrix.fromIdentity();
 
-  final Transform _transform = new Transform();
+  final Transform _transform;
   final List<SkeletonBoneAnimation> _skeletonBoneAnimations;
 
   SkeletonBone(this.bone, this.parent)
-      : _skeletonBoneAnimations = new List<SkeletonBoneAnimation>();
-
+      : _transform = new Transform(),
+        _skeletonBoneAnimations = new List<SkeletonBoneAnimation>();
 
   //---------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ class SkeletonBone {
 
   void updateWorldMatrix(double time) {
 
-    _transform.copyFrom(this.bone.transform);
+    _transform.copyFrom(bone.transform);
 
     for (var skeletonBoneAnimation in _skeletonBoneAnimations) {
       skeletonBoneAnimation.updateTransform(time);

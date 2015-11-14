@@ -22,8 +22,8 @@ Future main() async {
   // load the skeleton resources
 
   var resourceManager = new ResourceManager();
-  resourceManager.addTextureAtlas("dragon", "assets/texture.json");
-  resourceManager.addTextFile("dragon", "assets/dragon.json");
+  resourceManager.addTextureAtlas("dragonTexture", "assets/texture.json");
+  resourceManager.addTextFile("dragonJson", "assets/dragon.json");
   await resourceManager.load();
 
   // add TextField to show user information
@@ -37,14 +37,14 @@ Future main() async {
   textField.text = "tap to change animation";
 //  textField.addTo(stage);
 
-  var dragonBonesJson = resourceManager.getTextFile("dragon");
+  var textureAtlas = resourceManager.getTextureAtlas("dragonTexture");
+  var dragonBonesJson = resourceManager.getTextFile("dragonJson");
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-
-  var textureAtlas = resourceManager.getTextureAtlas("dragon");
-  var skeleton = dragonBones.createSkeleton("Dragon", textureAtlas);
+  var skeleton = dragonBones.createSkeleton("Dragon");
+  skeleton.setSkin(textureAtlas);
+  skeleton.play("walk");
   skeleton.x = 800;
   skeleton.y = 500;
-  skeleton.play("walk");
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

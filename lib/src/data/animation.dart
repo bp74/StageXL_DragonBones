@@ -18,10 +18,19 @@ class Animation {
 
   //---------------------------------------------------------------------------
 
-  AnimationBone getAnimationBone(String name) {
+  AnimationBone getAnimationBone(String boneName) {
     for(var animationBone in bones) {
-      if (animationBone.name == name) {
+      if (animationBone.name == boneName) {
         return animationBone;
+      }
+    }
+    return null;
+  }
+
+  AnimationSlot getAnimationSlot(String slotName) {
+    for(var animationSlot in slots) {
+      if (animationSlot.name == slotName) {
+        return animationSlot;
       }
     }
     return null;

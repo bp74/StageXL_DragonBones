@@ -12,8 +12,11 @@ class SkeletonBoneAnimation {
 
   void updateTransform(double time) {
 
+    // TODO: framerate
+    // TODO: auto tween
+
     var frames = animationBone.frames;
-    var frameRate = 24; // TODO
+    var frameRate = 24;
     var framePosition = (time * frameRate) % animation.duration;
     var frameOffset = 0.0;
 
@@ -25,10 +28,16 @@ class SkeletonBoneAnimation {
       var frameEnd = frameOffset + frameDuration;
 
       if (framePosition >= frameOffset && framePosition < frameEnd) {
-        var tweenEasing = frame0.tweenEasing ?? 0.0;
         var progress = (framePosition - frameOffset) / frameDuration;
-        var easeValue = _getEaseValue(progress, tweenEasing);
-        transform.tween(frame0.transform, frame1.transform, easeValue);
+        var tweenEasing = frame0.tweenEasing;
+        if (tweenEasing is! num) { // no tween
+          transform.copyFrom(frame0.transform);
+        } else if (tweenEasing == 10.0) { // auto tween ?
+          transform.tween(frame0.transform, frame1.transform, progress);
+        } else { // ease in, linear, ease out, ease in out
+          var easeValue = _getEaseValue(progress, tweenEasing);
+          transform.tween(frame0.transform, frame1.transform, easeValue);
+        }
         return;
       } else {
         frameOffset = frameEnd;

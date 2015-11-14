@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.0b2</string>
+        <string>4.0.1</string>
         <key>fileName</key>
         <string>D:/GitHub/bp74/StageXL_DragonBones/example/dragon/assets/texture.tps</string>
         <key>autoSDSettings</key>
@@ -72,7 +72,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -84,7 +84,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -176,7 +176,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -184,7 +184,7 @@
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
             <key>tracerTolerance</key>
-            <int>200</int>
+            <int>803</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -192,24 +192,24 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>texture/parts/armL.png</filename>
-            <filename>texture/parts/armR.png</filename>
-            <filename>texture/parts/armUpperL.png</filename>
-            <filename>texture/parts/armUpperR.png</filename>
-            <filename>texture/parts/beardL.png</filename>
-            <filename>texture/parts/beardR.png</filename>
-            <filename>texture/parts/body.png</filename>
-            <filename>texture/parts/clothes1.png</filename>
-            <filename>texture/parts/eyeL.png</filename>
-            <filename>texture/parts/eyeR.png</filename>
-            <filename>texture/parts/hair.png</filename>
-            <filename>texture/parts/handL.png</filename>
-            <filename>texture/parts/handR.png</filename>
-            <filename>texture/parts/head.png</filename>
-            <filename>texture/parts/legL.png</filename>
-            <filename>texture/parts/legR.png</filename>
-            <filename>texture/parts/tail.png</filename>
-            <filename>texture/parts/tailTip.png</filename>
+            <filename>texture/armL.png</filename>
+            <filename>texture/armR.png</filename>
+            <filename>texture/armUpperL.png</filename>
+            <filename>texture/armUpperR.png</filename>
+            <filename>texture/beardL.png</filename>
+            <filename>texture/beardR.png</filename>
+            <filename>texture/body.png</filename>
+            <filename>texture/clothes1.png</filename>
+            <filename>texture/eyeL.png</filename>
+            <filename>texture/eyeR.png</filename>
+            <filename>texture/hair.png</filename>
+            <filename>texture/handL.png</filename>
+            <filename>texture/handR.png</filename>
+            <filename>texture/head.png</filename>
+            <filename>texture/legL.png</filename>
+            <filename>texture/legR.png</filename>
+            <filename>texture/tail.png</filename>
+            <filename>texture/tailTip.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
