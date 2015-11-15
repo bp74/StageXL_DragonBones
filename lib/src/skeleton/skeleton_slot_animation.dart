@@ -19,7 +19,6 @@ class SkeletonSlotAnimation {
     // TODO: auto tween
 
     var frames = animationSlot.frames;
-    var frameRate = 24;
     var framePosition = frameTime % animation.duration;
     var frameOffset = 0.0;
 
