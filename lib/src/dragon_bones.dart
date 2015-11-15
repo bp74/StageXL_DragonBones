@@ -38,7 +38,7 @@ class DragonBones {
   Skeleton createSkeleton(String armatureName) {
     var armature = this.getArmature(armatureName);
     if (armature == null) throw new ArgumentError("armatureName");
-    return new Skeleton(armature);
+    return new Skeleton(armature, this.frameRate);
   }
 
 }

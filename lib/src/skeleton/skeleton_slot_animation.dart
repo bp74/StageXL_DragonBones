@@ -6,22 +6,21 @@ class SkeletonSlotAnimation {
   final AnimationSlot animationSlot;
   final ColorTransform colorTransform = new ColorTransform();
 
-  double time = 0.0;
+  double frameTime = 0.0;
 
   SkeletonSlotAnimation(this.animation, this.animationSlot);
 
   //---------------------------------------------------------------------------
 
-  void advanceTime(double deltaTime) {
+  void advanceFrameTime(double deltaFrameTime) {
 
-    time += deltaTime;
+    frameTime += deltaFrameTime;
 
-    // TODO: framerate
     // TODO: auto tween
 
     var frames = animationSlot.frames;
     var frameRate = 24;
-    var framePosition = (time * frameRate) % animation.duration;
+    var framePosition = frameTime % animation.duration;
     var frameOffset = 0.0;
 
     for(int i = 0; i < frames.length - 1; i++) {

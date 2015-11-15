@@ -23,12 +23,12 @@ class SkeletonSlot {
 
   //---------------------------------------------------------------------------
 
-  void advanceTime(double deltaTime) {
+  void advanceFrameTime(double deltaFrameTime) {
 
     _colorTransform.reset();
 
     for (var skeletonSlotAnimation in _skeletonSlotAnimations) {
-      skeletonSlotAnimation.advanceTime(deltaTime);
+      skeletonSlotAnimation.advanceFrameTime(deltaFrameTime);
       _colorTransform.concat(skeletonSlotAnimation.colorTransform);
     }
 

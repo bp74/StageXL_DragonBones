@@ -6,22 +6,21 @@ class SkeletonBoneAnimation {
   final AnimationBone animationBone;
   final Transform transform = new Transform();
 
-  double time = 0.0;
+  double frameTime = 0.0;
 
   SkeletonBoneAnimation(this.animation, this.animationBone);
 
   //---------------------------------------------------------------------------
 
-  void advanceTime(double deltaTime) {
+  void advanceFrameTime(double deltaFrameTime) {
 
-    time += deltaTime;
+    frameTime += deltaFrameTime;
 
-    // TODO: framerate
     // TODO: auto tween
 
     var frames = animationBone.frames;
     var frameRate = 24;
-    var framePosition = (time * frameRate) % animation.duration;
+    var framePosition = frameTime  % animation.duration;
     var frameOffset = 0.0;
 
     for(int i = 0; i < frames.length - 1; i++) {

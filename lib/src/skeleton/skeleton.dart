@@ -7,12 +7,13 @@ class Skeleton extends InteractiveObject implements Animatable {
   final List<SkeletonBone> _skeletonBones = new List<SkeletonBone>();
   final List<SkeletonSlot> _skeletonSlots = new List<SkeletonSlot>();
 
+  int frameRate = 24;
   bool showBones = false;
   bool showSlots = true;
 
   //---------------------------------------------------------------------------
 
-  Skeleton(this.armature) {
+  Skeleton(this.armature, this.frameRate) {
 
     var map = new Map<String, SkeletonBone>();
 
@@ -37,12 +38,14 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   bool advanceTime(num deltaTime) {
 
+    double deltaFrameTime = deltaTime.toDouble() * frameRate;
+
     for (var skeletonBone in _skeletonBones) {
-      skeletonBone.advanceTime(deltaTime);
+      skeletonBone.advanceFrameTime(deltaFrameTime);
     }
 
     for(var skeletonSlot in _skeletonSlots) {
-      skeletonSlot.advanceTime(deltaTime);
+      skeletonSlot.advanceFrameTime(deltaFrameTime);
     }
 
     return true;

@@ -22,12 +22,12 @@ class SkeletonBone {
 
   //---------------------------------------------------------------------------
 
-  void advanceTime(double deltaTime) {
+  void advanceFrameTime(double deltaFrameTime) {
 
     _transform.copyFrom(bone.transform);
 
     for (var skeletonBoneAnimation in _skeletonBoneAnimations) {
-      skeletonBoneAnimation.advanceTime(deltaTime);
+      skeletonBoneAnimation.advanceFrameTime(deltaFrameTime);
       _transform.concat(skeletonBoneAnimation.transform);
     }
 
