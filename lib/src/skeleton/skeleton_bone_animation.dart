@@ -33,10 +33,10 @@ class SkeletonBoneAnimation {
         if (tweenEasing is! num) { // no tween
           transform.copyFrom(frame0.transform);
         } else if (tweenEasing == 10.0) { // auto tween ?
-          transform.tween(frame0.transform, frame1.transform, progress);
+          transform.interpolate(frame0.transform, frame1.transform, progress);
         } else { // ease in, linear, ease out, ease in out
           var easeValue = _getEaseValue(progress, tweenEasing);
-          transform.tween(frame0.transform, frame1.transform, easeValue);
+          transform.interpolate(frame0.transform, frame1.transform, easeValue);
         }
         return;
       } else {

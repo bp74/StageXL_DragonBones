@@ -28,7 +28,7 @@ class SkeletonBone {
 
     for (var skeletonBoneAnimation in _skeletonBoneAnimations) {
       skeletonBoneAnimation.updateTransform(time);
-      _transform.append(skeletonBoneAnimation.transform);
+      _transform.concat(skeletonBoneAnimation.transform);
     }
 
     if (parent != null) {

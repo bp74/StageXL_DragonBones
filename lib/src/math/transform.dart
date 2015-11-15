@@ -113,7 +113,7 @@ class Transform {
 
   //---------------------------------------------------------------------------
 
-  void tween(Transform t1, Transform t2, double value) {
+  void interpolate(Transform t1, Transform t2, double value) {
     _data[0] = t1.x + (t2.x - t1.x) * value;
     _data[1] = t1.y + (t2.y - t1.y) * value;
     _data[2] = t1.skewX + (t2.skewX - t1.skewX) * value;
@@ -125,7 +125,7 @@ class Transform {
 
   //---------------------------------------------------------------------------
 
-  void append(Transform t) {
+  void concat(Transform t) {
     _data[0] += t.x;
     _data[1] += t.y;
     _data[2] += t.skewX;
