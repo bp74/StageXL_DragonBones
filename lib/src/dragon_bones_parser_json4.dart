@@ -2,6 +2,8 @@ part of stagexl_dragonbones;
 
 class _DragonBonesParserJson4 {
 
+  // Format: http://edn.egret.com/cn/index.php/article/index/id/338
+
   static DragonBones parse(Map data) {
     return new DragonBones(
         _getString(data, "name", ""),
