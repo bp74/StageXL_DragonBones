@@ -22,12 +22,12 @@ class SkeletonBone {
 
   //---------------------------------------------------------------------------
 
-  void updateWorldMatrix(double time) {
+  void advanceTime(double deltaTime) {
 
     _transform.copyFrom(bone.transform);
 
     for (var skeletonBoneAnimation in _skeletonBoneAnimations) {
-      skeletonBoneAnimation.updateTransform(time);
+      skeletonBoneAnimation.advanceTime(deltaTime);
       _transform.concat(skeletonBoneAnimation.transform);
     }
 

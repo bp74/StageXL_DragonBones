@@ -10,8 +10,6 @@ class Skeleton extends InteractiveObject implements Animatable {
   bool showBones = false;
   bool showSlots = true;
 
-  double _time = 0.0;
-
   //---------------------------------------------------------------------------
 
   Skeleton(this.armature) {
@@ -39,18 +37,14 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   bool advanceTime(num deltaTime) {
 
-    var oldTime = _time;
-    var newTime = _time + deltaTime;
-
     for (var skeletonBone in _skeletonBones) {
-      skeletonBone.updateWorldMatrix(newTime);
+      skeletonBone.advanceTime(deltaTime);
     }
 
     for(var skeletonSlot in _skeletonSlots) {
-      skeletonSlot.updateWorldMatrix(newTime);
+      skeletonSlot.advanceTime(deltaTime);
     }
 
-    _time = newTime;
     return true;
   }
 

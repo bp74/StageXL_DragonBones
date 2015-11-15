@@ -23,10 +23,16 @@ class SkeletonSlot {
 
   //---------------------------------------------------------------------------
 
-  void updateWorldMatrix(double time) {
+  void advanceTime(double deltaTime) {
+
+    _colorTransform.reset();
+
+    for (var skeletonSlotAnimation in _skeletonSlotAnimations) {
+      skeletonSlotAnimation.advanceTime(deltaTime);
+      _colorTransform.concat(skeletonSlotAnimation.colorTransform);
+    }
 
     worldMatrix.copyFrom(parent.worldMatrix);
-
   }
 
   //---------------------------------------------------------------------------
@@ -34,7 +40,7 @@ class SkeletonSlot {
   void render(RenderState renderState) {
     if (displays.length > 0) {
       // TODO: show display according slot animation
-      displays.first.render(renderState);
+      displays.first.render(renderState, _colorTransform);
     }
   }
 

@@ -6,11 +6,15 @@ class SkeletonBoneAnimation {
   final AnimationBone animationBone;
   final Transform transform = new Transform();
 
+  double time = 0.0;
+
   SkeletonBoneAnimation(this.animation, this.animationBone);
 
   //---------------------------------------------------------------------------
 
-  void updateTransform(double time) {
+  void advanceTime(double deltaTime) {
+
+    time += deltaTime;
 
     // TODO: framerate
     // TODO: auto tween
@@ -30,13 +34,15 @@ class SkeletonBoneAnimation {
       if (framePosition >= frameOffset && framePosition < frameEnd) {
         var progress = (framePosition - frameOffset) / frameDuration;
         var tweenEasing = frame0.tweenEasing;
+        var transform0 = frame0.transform;
+        var transform1 = frame1.transform;
         if (tweenEasing is! num) { // no tween
-          transform.copyFrom(frame0.transform);
+          transform.copyFrom(transform0);
         } else if (tweenEasing == 10.0) { // auto tween ?
-          transform.interpolate(frame0.transform, frame1.transform, progress);
+          transform.interpolate(transform0, transform1, progress);
         } else { // ease in, linear, ease out, ease in out
           var easeValue = _getEaseValue(progress, tweenEasing);
-          transform.interpolate(frame0.transform, frame1.transform, easeValue);
+          transform.interpolate(transform0, transform1, easeValue);
         }
         return;
       } else {
@@ -46,7 +52,6 @@ class SkeletonBoneAnimation {
 
     transform.reset();
   }
-
 
 
 }

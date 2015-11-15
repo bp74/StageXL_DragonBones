@@ -9,7 +9,7 @@ abstract class SkeletonSlotDisplay {
     matrix.copyFrom(display.transform.matrix);
   }
 
-  void render(RenderState renderState);
+  void render(RenderState renderState, ColorTransform colorTransform);
 
 }
 
@@ -29,7 +29,13 @@ class SkeletonSlotDisplayImage extends SkeletonSlotDisplay {
   }
 
   @override
-  void render(RenderState renderState) {
+  void render(RenderState renderState, ColorTransform colorTransform) {
+
+    var colorMultipliers = colorTransform.multipliers;
+    var colorOffsets = colorTransform.offsets;
+
+    // TODO: use color multipliers for rendering
+
     renderState.globalMatrix.prepend(matrix);
     renderState.renderTextureQuad(renderTextureQuad);
   }
@@ -44,7 +50,7 @@ class SkeletonSlotDisplayArmature extends SkeletonSlotDisplay {
       : super(display);
 
   @override
-  void render(RenderState renderState) {
+  void render(RenderState renderState, ColorTransform colorTransform) {
 
   }
 }
