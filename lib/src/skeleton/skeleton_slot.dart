@@ -6,13 +6,14 @@ class SkeletonSlot {
   final SkeletonBone parent;
   final Matrix worldMatrix = new Matrix.fromIdentity();
   final List<SkeletonSlotDisplay> displays = new List<SkeletonSlotDisplay>();
-
-  final ColorTransform _colorTransform;
   final List<SkeletonSlotAnimation> _skeletonSlotAnimations;
 
+  ColorTransform colorTransform = new ColorTransform();
+  BlendMode blendMode = BlendMode.NORMAL;
+  SkeletonSlotDisplay display = null;
+
   SkeletonSlot(this.slot, this.parent)
-      : _colorTransform = new ColorTransform(),
-        _skeletonSlotAnimations = new List<SkeletonSlotAnimation>();
+      : _skeletonSlotAnimations = new List<SkeletonSlotAnimation>();
 
   //---------------------------------------------------------------------------
 
@@ -25,23 +26,23 @@ class SkeletonSlot {
 
   void advanceFrameTime(double deltaFrameTime) {
 
-    _colorTransform.reset();
+    colorTransform.reset();
 
     for (var skeletonSlotAnimation in _skeletonSlotAnimations) {
       skeletonSlotAnimation.advanceFrameTime(deltaFrameTime);
-      _colorTransform.concat(skeletonSlotAnimation.colorTransform);
+      colorTransform.concat(skeletonSlotAnimation.colorTransform);
     }
 
-    worldMatrix.copyFrom(parent.worldMatrix);
-  }
+    // TODO: show display according slot animation
 
-  //---------------------------------------------------------------------------
-
-  void render(RenderState renderState) {
     if (displays.length > 0) {
-      // TODO: show display according slot animation
-      displays.first.render(renderState, _colorTransform);
+      display = displays.first;
+      worldMatrix.copyFromAndConcat(display.matrix, parent.worldMatrix);
+    } else {
+      display = null;
+      worldMatrix.copyFrom(parent.worldMatrix);
     }
+
   }
 
 }

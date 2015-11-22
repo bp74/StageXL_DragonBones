@@ -120,26 +120,71 @@ class Skeleton extends InteractiveObject implements Animatable {
   @override
   void render(RenderState renderState) {
 
-    var renderContext = renderState.renderContext;
-    var globalMatrix = renderState.globalMatrix;
-    var newRenderState = new RenderState(renderContext);
-
     if (showSlots) {
-      for (var skeletonSlot in _skeletonSlots) {
-        newRenderState.globalMatrix.copyFrom(skeletonSlot.worldMatrix);
-        newRenderState.globalMatrix.concat(globalMatrix);
-        skeletonSlot.render(newRenderState);
+      var renderContext = renderState.renderContext;
+      if (renderContext is RenderContextWebGL) {
+        _renderSlotsWebGL(renderState);
+      } else {
+        _renderSlotsCanvas(renderState);
       }
     }
 
     if (showBones) {
       for (var skeletonBone in _skeletonBones) {
-        newRenderState.globalMatrix.copyFrom(skeletonBone.worldMatrix);
-        newRenderState.globalMatrix.concat(globalMatrix);
         var l = skeletonBone.bone.length;
-        newRenderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
-        newRenderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
-        newRenderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
+        renderState.push(skeletonBone.worldMatrix, 1.0, BlendMode.NORMAL);
+        renderState.renderTriangle(0, 5, 0, -5, l, 0, Color.Red);
+        renderState.renderTriangle(-3, -3, 3, -3, 3, 3, Color.Green);
+        renderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
+        renderState.pop();
+      }
+    }
+  }
+
+  //---------------------------------------------------------------------------
+
+  void _renderSlotsWebGL(RenderState renderState) {
+
+    var renderContext = renderState.renderContext as RenderContextWebGL;
+    var renderProgram = renderContext.renderProgramTinted;
+    renderContext.activateRenderProgram(renderProgram);
+
+    for (var skeletonSlot in _skeletonSlots) {
+      var display = skeletonSlot.display;
+      if (display is SkeletonSlotDisplayImage) {
+
+        var renderTextureQuad = display.renderTextureQuad;
+        var renderTexture = display.renderTextureQuad.renderTexture;
+        var worldMatrix = skeletonSlot.worldMatrix;
+        var colorTransform = skeletonSlot.colorTransform;
+        var blendMode = skeletonSlot.blendMode;
+
+        renderState.push(worldMatrix, 1.0, blendMode);
+        renderContext.activateRenderTexture(renderTexture);
+        renderContext.activateBlendMode(renderState.globalBlendMode);
+        renderProgram.renderTextureMesh(
+            renderState,
+            renderTextureQuad.ixList,
+            renderTextureQuad.vxList,
+            colorTransform.redMultiplier,
+            colorTransform.greenMultiplier,
+            colorTransform.blueMultiplier,
+            colorTransform.alphaMultiplier);
+        renderState.pop();
+      }
+    }
+  }
+
+  void _renderSlotsCanvas(RenderState renderState) {
+
+    for (var skeletonSlot in _skeletonSlots) {
+      var display = skeletonSlot.display;
+      if (display is SkeletonSlotDisplayImage) {
+        var blendMode = skeletonSlot.blendMode;
+        var alpha = skeletonSlot.colorTransform.alphaMultiplier;
+        renderState.push(skeletonSlot.worldMatrix, alpha, blendMode);
+        renderState.renderTextureQuad(display.renderTextureQuad);
+        renderState.pop();
       }
     }
   }
