@@ -121,8 +121,7 @@ class Skeleton extends InteractiveObject implements Animatable {
   void render(RenderState renderState) {
 
     if (showSlots) {
-      var renderContext = renderState.renderContext;
-      if (renderContext is RenderContextWebGL) {
+      if (renderState.renderContext is RenderContextWebGL) {
         _renderSlotsWebGL(renderState);
       } else {
         _renderSlotsCanvas(renderState);
@@ -150,16 +149,17 @@ class Skeleton extends InteractiveObject implements Animatable {
     renderContext.activateRenderProgram(renderProgram);
 
     for (var skeletonSlot in _skeletonSlots) {
-      var display = skeletonSlot.display;
-      if (display is SkeletonSlotDisplayImage) {
 
+      var display = skeletonSlot.display;
+      var worldMatrix = skeletonSlot.worldMatrix;
+      var colorTransform = skeletonSlot.colorTransform;
+      var blendMode = skeletonSlot.blendMode;
+
+      renderState.push(worldMatrix, 1.0, blendMode);
+
+      if (display is SkeletonSlotDisplayImage) {
         var renderTextureQuad = display.renderTextureQuad;
         var renderTexture = display.renderTextureQuad.renderTexture;
-        var worldMatrix = skeletonSlot.worldMatrix;
-        var colorTransform = skeletonSlot.colorTransform;
-        var blendMode = skeletonSlot.blendMode;
-
-        renderState.push(worldMatrix, 1.0, blendMode);
         renderContext.activateRenderTexture(renderTexture);
         renderContext.activateBlendMode(renderState.globalBlendMode);
         renderProgram.renderTextureMesh(
@@ -170,22 +170,28 @@ class Skeleton extends InteractiveObject implements Animatable {
             colorTransform.greenMultiplier,
             colorTransform.blueMultiplier,
             colorTransform.alphaMultiplier);
-        renderState.pop();
       }
+
+      renderState.pop();
     }
   }
 
   void _renderSlotsCanvas(RenderState renderState) {
 
     for (var skeletonSlot in _skeletonSlots) {
+
       var display = skeletonSlot.display;
+      var worldMatrix = skeletonSlot.worldMatrix;
+      var colorTransform = skeletonSlot.colorTransform;
+      var blendMode = skeletonSlot.blendMode;
+
+      renderState.push(worldMatrix, colorTransform.alphaMultiplier, blendMode);
+
       if (display is SkeletonSlotDisplayImage) {
-        var blendMode = skeletonSlot.blendMode;
-        var alpha = skeletonSlot.colorTransform.alphaMultiplier;
-        renderState.push(skeletonSlot.worldMatrix, alpha, blendMode);
         renderState.renderTextureQuad(display.renderTextureQuad);
-        renderState.pop();
       }
+
+      renderState.pop();
     }
   }
 
