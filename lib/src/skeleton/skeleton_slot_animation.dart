@@ -52,8 +52,16 @@ class SkeletonSlotAnimation {
       }
     }
 
-    displayIndex = -1;
-    colorTransform.reset();
+    if (frames.length == 1 && framePosition < frames.first.duration) {
+      displayIndex = frames.first.displayIndex;
+      colorTransform.copyFrom(frames.first.colorTransform);
+    } else if (frames.length == 0) {
+      displayIndex = 0;
+      colorTransform.reset();
+    } else {
+      displayIndex = -1;
+      colorTransform.reset();
+    }
   }
 
 }
