@@ -6,6 +6,7 @@ class SkeletonSlotAnimation {
   final AnimationSlot animationSlot;
   final ColorTransform colorTransform = new ColorTransform();
 
+  int displayIndex = -1;
   double frameTime = 0.0;
 
   SkeletonSlotAnimation(this.animation, this.animationSlot);
@@ -36,11 +37,14 @@ class SkeletonSlotAnimation {
         var transform1 = frame1.colorTransform;
         if (tweenEasing is! num) { // no tween
           colorTransform.copyFrom(transform0);
+          displayIndex = frame0.displayIndex;
         } else if (tweenEasing == 10.0) { // auto tween ?
           colorTransform.interpolate(transform0, transform1, progress);
+          displayIndex = frame0.displayIndex;
         } else { // ease in, linear, ease out, ease in out
           var easeValue = _getEaseValue(progress, tweenEasing);
           colorTransform.interpolate(transform0, transform1, easeValue);
+          displayIndex = frame0.displayIndex;
         }
         return;
       } else {
@@ -48,6 +52,7 @@ class SkeletonSlotAnimation {
       }
     }
 
+    displayIndex = -1;
     colorTransform.reset();
   }
 
