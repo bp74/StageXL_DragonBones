@@ -52,7 +52,13 @@ class SkeletonBoneAnimation {
       }
     }
 
-    transform.reset();
+    if (frames.length == 1 && framePosition < frames.first.duration) {
+      transform.copyFrom(frames.first.transform);
+    } else if (frames.length == 0) {
+      transform.reset();
+    } else {
+      transform.reset();
+    }
   }
 
 
