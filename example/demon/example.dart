@@ -34,11 +34,12 @@ Future main() async {
   var skeleton = dragonBones.createSkeleton("armatureName");
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("run");
-  skeleton.play("stun");
-  skeleton.x = 320;
-  skeleton.y = 600;
-  skeleton.showBones = true;
+  //skeleton.play("run");
+  skeleton.play("uniqueAttack");
+  skeleton.x = 450;
+  skeleton.y = 620;
+  skeleton.scaleX = skeleton.scaleY = 0.7;
+  //skeleton.showBones = true;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 
