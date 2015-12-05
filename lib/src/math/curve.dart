@@ -60,11 +60,6 @@ class Curve {
     var c = 3.0 * x1 - 3.0 * x0;
     var d = 1.0 * x0;
 
-    var e = 1.0 * y3 - 3.0 * y2 + 3.0 * y1 - 1.0 * y0;
-    var f = 3.0 * y2 - 6.0 * y1 + 3.0 * y0;
-    var g = 3.0 * y1 - 3.0 * y0;
-    var h = 1.0 * y0;
-
     // Using Newton-Raphelson to solve for t given x
     // Assume for the first guess that t = x
 
@@ -82,7 +77,12 @@ class Curve {
 
     // Solve for y given t
 
-    return t * (t * (t * e + f) + g) + h;
+    a = 1.0 * y3 - 3.0 * y2 + 3.0 * y1 - 1.0 * y0;
+    b = 3.0 * y2 - 6.0 * y1 + 3.0 * y0;
+    c = 3.0 * y1 - 3.0 * y0;
+    d = 1.0 * y0;
+
+    return t * (t * (t * a + b) + c) + d;
   }
 
 }
