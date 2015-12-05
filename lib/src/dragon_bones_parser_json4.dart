@@ -84,17 +84,19 @@ class _DragonBonesParserJson4 {
   static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
     return new AnimationBoneFrame(
         _getInt(data, "duration", 0),
-        _getDoubleOrNull(data, "tweenEasing", 10),
-        _getTransform(data, "transform"));
+        _getDoubleOrNull(data, "tweenEasing", 10.0),
+        _getTransform(data, "transform"),
+        _getCurve(data, "curve"));
   }
 
   static AnimationSlotFrame _parseAnimationSlotFrame(Map data) {
     return new AnimationSlotFrame(
         _getInt(data, "duration", 0),
-        _getDoubleOrNull(data, "tweenEasing", 10),
+        _getDoubleOrNull(data, "tweenEasing", 10.0),
         _getInt(data, "displayIndex", 0),
         _getInt(data, "z", 0),
-        _getColorTransform(data, "color"));
+        _getColorTransform(data, "color"),
+        _getCurve(data, "curve"));
   }
 
   //---------------------------------------------------------------------------
@@ -109,6 +111,19 @@ class _DragonBonesParserJson4 {
     transform.scaleX = _getDouble(value, "scX", 1.0);
     transform.scaleY = _getDouble(value, "scY", 1.0);
     return transform;
+  }
+
+  static Curve _getCurve(Map data, String key) {
+    var value = data.containsKey(key) ? data[key] : null;
+    if (value is List && value.length == 4) {
+      var x1 = value[0].toDouble();
+      var y1 = value[1].toDouble();
+      var x2 = value[2].toDouble();
+      var y2 = value[3].toDouble();
+      return new Curve(x1, y1, x2, y2);
+    } else {
+      return null;
+    }
   }
 
   static ColorTransform _getColorTransform(Map data, String key) {
@@ -144,7 +159,7 @@ class _DragonBonesParserJson4 {
     throw new StateError("Invalid type for key '$key'");
   }
 
-  static double _getDoubleOrNull(Map data, String key, int defaultValue) {
+  static double _getDoubleOrNull(Map data, String key, double defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
     if (value is num) return value.toDouble();
     if (value == null) return null;

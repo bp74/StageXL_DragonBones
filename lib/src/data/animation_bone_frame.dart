@@ -13,10 +13,12 @@ class AnimationBoneFrame {
   final int duration;
   final double tweenEasing;
   final Transform transform;
+  final Curve curve;
 
   AnimationBoneFrame(
       this.duration,
       this.tweenEasing,
-      this.transform);
+      this.transform,
+      this.curve);
 
 }

@@ -33,9 +33,14 @@ class SkeletonSlotAnimation {
       if (framePosition >= frameOffset && framePosition < frameEnd) {
         var progress = (framePosition - frameOffset) / frameDuration;
         var tweenEasing = frame0.tweenEasing;
+        var tweenCurve = frame0.curve;
         var transform0 = frame0.colorTransform;
         var transform1 = frame1.colorTransform;
-        if (tweenEasing is! num) { // no tween
+        if (tweenCurve is Curve) {
+          var easeValue = tweenCurve.getValue(progress);
+          colorTransform.interpolate(transform0, transform1, easeValue);
+          displayIndex = frame0.displayIndex;
+        } else if (tweenEasing is! num) { // no tween
           colorTransform.copyFrom(transform0);
           displayIndex = frame0.displayIndex;
         } else if (tweenEasing == 10.0) { // auto tween ?

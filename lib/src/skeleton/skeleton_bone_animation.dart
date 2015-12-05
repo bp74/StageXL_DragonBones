@@ -32,9 +32,13 @@ class SkeletonBoneAnimation {
       if (framePosition >= frameOffset && framePosition < frameEnd) {
         var progress = (framePosition - frameOffset) / frameDuration;
         var tweenEasing = frame0.tweenEasing;
+        var tweenCurve = frame0.curve;
         var transform0 = frame0.transform;
         var transform1 = frame1.transform;
-        if (tweenEasing is! num) { // no tween
+        if (tweenCurve is Curve) {
+          var easeValue = tweenCurve.getValue(progress);
+          transform.interpolate(transform0, transform1, easeValue);
+        } else if (tweenEasing is! num) { // no tween
           transform.copyFrom(transform0);
         } else if (tweenEasing == 10.0) { // auto tween ?
           transform.interpolate(transform0, transform1, progress);

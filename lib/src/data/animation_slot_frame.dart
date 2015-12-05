@@ -15,12 +15,14 @@ class AnimationSlotFrame {
   final int displayIndex;
   final int zOrder;
   final ColorTransform colorTransform;
+  final Curve curve;
 
   AnimationSlotFrame(
       this.duration,
       this.tweenEasing,
       this.displayIndex,
       this.zOrder,
-      this.colorTransform);
+      this.colorTransform,
+      this.curve);
 
 }

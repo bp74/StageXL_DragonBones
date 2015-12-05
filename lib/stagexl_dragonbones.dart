@@ -17,6 +17,7 @@ part 'src/data/skin.dart';
 part 'src/data/skin_slot.dart';
 part 'src/data/slot.dart';
 
+part 'src/math/curve.dart';
 part 'src/math/tools.dart';
 part 'src/math/transform.dart';
 
