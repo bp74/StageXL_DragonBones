@@ -18,6 +18,8 @@ class Curve {
   final Float32List _values = new Float32List(20);
 
   Curve(this.x1, this.y1, this.x2, this.y2) {
+    if (x1 < 0.0 || x1 > 1.0) throw new RangeError.value(x1, "x1");
+    if (x2 < 0.0 || x2 > 1.0) throw new RangeError.value(x2, "x2");
     for(int i = 0; i < _values.length; i++) {
       var x = i / (_values.length - 1);
       var y = _calculate(x, x1, y1, x2, y2);
