@@ -60,7 +60,7 @@ class Curve {
     var c = 3.0 * x1 - 3.0 * x0;
     var d = 1.0 * x0;
 
-    // Using Newton-Raphelson to solve for t given x
+    // Using Newton-Raphson to solve for t given x
     // Assume for the first guess that t = x
 
     var refinementIterations = 5;
