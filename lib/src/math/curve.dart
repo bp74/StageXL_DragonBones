@@ -27,6 +27,8 @@ class Curve {
     }
   }
 
+  //---------------------------------------------------------------------------
+
   double getValue(double x) {
     if (x <= 0.0) {
       return 0.0;
@@ -36,19 +38,18 @@ class Curve {
       return x;
     } else {
       var ir = x * (_values.length - 1);
-      var im = ir % 1.0;
       var v0 = _values[ir.floor()];
       var v1 = _values[ir.ceil()];
-      return v0 * (1.0 - im) + v1 * im;
+      return v0 + (v1 - v0) * (ir % 1.0);
     }
   }
 
   bool get isCurve {
-    return x1 != 0.0 || y1 != 0.0 || x2 != 1.0 || y2 != 1.0;
+    return x1 != y1 || x2 != y2;
   }
 
   bool get isLinear {
-    return x1 == 0.0 && y1 == 0.0 && x2 == 1.0 && y2 == 1.0;
+    return x1 == y1 && x2 == y2;
   }
 
   //---------------------------------------------------------------------------
