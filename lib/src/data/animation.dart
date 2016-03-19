@@ -8,7 +8,7 @@ class Animation {
 
   final List<AnimationBone> bones;
   final List<AnimationSlot> slots;
-  final List<AnimationFree> frees;
+  final List<AnimationForm> forms;
 
   Animation(
       this.name,
@@ -16,7 +16,7 @@ class Animation {
       this.playTimes,
       this.bones,
       this.slots,
-      this.frees);
+      this.forms);
 
   //---------------------------------------------------------------------------
 
@@ -34,9 +34,9 @@ class Animation {
     return null;
   }
 
-  AnimationFree getAnimationFree(String slotName, String skinName) {
-    for (var free in frees) {
-      if (free.slotName == slotName && free.skinName == skinName) return free;
+  AnimationForm getAnimationFree(String slotName, String skinName) {
+    for (var form in forms) {
+      if (form.slotName == slotName && form.skinName == skinName) return form;
     }
     return null;
   }

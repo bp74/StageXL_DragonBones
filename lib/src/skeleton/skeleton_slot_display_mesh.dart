@@ -16,7 +16,7 @@ class SkeletonSlotDisplayMesh extends SkeletonSlotDisplay {
 
   @override
   void render(RenderState renderState) {
-
+   // renderState.renderTextureQuad(this.renderTextureQuad);
   }
 }
 

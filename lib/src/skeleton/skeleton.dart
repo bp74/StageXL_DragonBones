@@ -97,17 +97,19 @@ class Skeleton extends InteractiveObject implements Animatable {
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
       var animationBone = animation.getAnimationBone(boneName);
-      if (animationBone == null) continue;
-      var sba = new SkeletonBoneAnimation(animation, animationBone);
-      skeletonBone.addSkeletonBoneAnimation(sba);
+      if (animationBone != null) {
+        var sba = new SkeletonBoneAnimation(animation, animationBone);
+        skeletonBone.addSkeletonBoneAnimation(sba);
+      }
     }
 
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
-      var animSlot = animation.getAnimationSlot(slotName);
-      var animFree = animation.getAnimationFree(slotName, _skinName);
-      var ssa = new SkeletonSlotAnimation(animation, animSlot, animFree);
-      skeletonSlot.addSkeletonSlotAnimation(ssa);
+      var animationSlot = animation.getAnimationSlot(slotName);
+      if (animationSlot != null) {
+        var ssa = new SkeletonSlotAnimation(animation, animationSlot);
+        skeletonSlot.addSkeletonSlotAnimation(ssa);
+      }
     }
   }
 

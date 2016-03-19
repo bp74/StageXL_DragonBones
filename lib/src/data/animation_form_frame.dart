@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class AnimationFreeFrame {
+class AnimationFormFrame {
 
   // tweenEasing
   // null    : no tween
@@ -16,7 +16,7 @@ class AnimationFreeFrame {
   final double tweenEasing;
   final Curve curve;
 
-  AnimationFreeFrame(
+  AnimationFormFrame(
       this.duration,
       this.offset,
       this.vertices,

@@ -4,27 +4,18 @@ class SkeletonSlotAnimation {
 
   final Animation animation;
   final AnimationSlot animationSlot;
-  final AnimationFree animationFree;
   final ColorTransform colorTransform = new ColorTransform();
 
   int displayIndex = 0;
   double frameTime = 0.0;
 
-  SkeletonSlotAnimation(this.animation, this.animationSlot, this.animationFree);
+  SkeletonSlotAnimation(this.animation, this.animationSlot);
 
   //---------------------------------------------------------------------------
 
   void advanceFrameTime(double deltaFrameTime) {
 
     frameTime += deltaFrameTime;
-    if (animationSlot != null) _advanceFrameTimeForSlot();
-    if (animationFree != null) _advanceFrameTimeForFree();
-  }
-
-  //---------------------------------------------------------------------------
-  //---------------------------------------------------------------------------
-
-  void _advanceFrameTimeForSlot() {
 
     // TODO: auto tween
 
@@ -76,10 +67,6 @@ class SkeletonSlotAnimation {
       displayIndex = -1;
       colorTransform.reset();
     }
-  }
-
-  void _advanceFrameTimeForFree() {
-
   }
 
 }
