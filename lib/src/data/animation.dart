@@ -6,9 +6,9 @@ class Animation {
   final int duration;
   final int playTimes;
 
-  final List<AnimationSlot> slots;
   final List<AnimationBone> bones;
-  final List<AnimationFfd> ffds;
+  final List<AnimationSlot> slots;
+  final List<AnimationFree> frees;
 
   Animation(
       this.name,
@@ -16,33 +16,27 @@ class Animation {
       this.playTimes,
       this.bones,
       this.slots,
-      this.ffds);
+      this.frees);
 
   //---------------------------------------------------------------------------
 
   AnimationBone getAnimationBone(String boneName) {
-    for (var animationBone in bones) {
-      if (animationBone.name == boneName) {
-        return animationBone;
-      }
+    for (var bone in bones) {
+      if (bone.name == boneName) return bone;
     }
     return null;
   }
 
   AnimationSlot getAnimationSlot(String slotName) {
-    for (var animationSlot in slots) {
-      if (animationSlot.name == slotName) {
-        return animationSlot;
-      }
+    for (var slot in slots) {
+      if (slot.name == slotName) return slot;
     }
     return null;
   }
 
-  AnimationFfd getAnimationFfd(String ffdName) {
-    for (var animatonFfd in ffds) {
-      if (animatonFfd.name == ffdName) {
-        return animatonFfd;
-      }
+  AnimationFree getAnimationFree(String slotName, String skinName) {
+    for (var free in frees) {
+      if (free.slotName == slotName && free.skinName == skinName) return free;
     }
     return null;
   }

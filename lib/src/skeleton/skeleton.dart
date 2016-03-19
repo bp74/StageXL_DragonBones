@@ -10,6 +10,7 @@ class Skeleton extends InteractiveObject implements Animatable {
   int frameRate = 24;
   bool showBones = false;
   bool showSlots = true;
+  String _skinName = null;
 
   //---------------------------------------------------------------------------
 
@@ -58,6 +59,8 @@ class Skeleton extends InteractiveObject implements Animatable {
     var skin = this.armature.getSkin(skinName);
     if (skin == null) throw new ArgumentError("skinName");
 
+    _skinName = skin.name;
+
     for (var skeletonSlot in _skeletonSlots) {
 
       skeletonSlot.displays.clear();
@@ -101,9 +104,9 @@ class Skeleton extends InteractiveObject implements Animatable {
 
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
-      var animationSlot = animation.getAnimationSlot(slotName);
-      if (animationSlot == null) continue;
-      var ssa = new SkeletonSlotAnimation(animation, animationSlot);
+      var animSlot = animation.getAnimationSlot(slotName);
+      var animFree = animation.getAnimationFree(slotName, _skinName);
+      var ssa = new SkeletonSlotAnimation(animation, animSlot, animFree);
       skeletonSlot.addSkeletonSlotAnimation(ssa);
     }
   }
@@ -126,10 +129,16 @@ class Skeleton extends InteractiveObject implements Animatable {
   void render(RenderState renderState) {
 
     if (showSlots) {
-      if (renderState.renderContext is RenderContextWebGL) {
-        _renderSlotsWebGL(renderState);
-      } else {
-        _renderSlotsCanvas(renderState);
+      for (var skeletonSlot in _skeletonSlots) {
+        var display = skeletonSlot.display;
+        if (display != null) {
+          var worldMatrix = skeletonSlot.worldMatrix;
+          //var colorTransform = skeletonSlot.colorTransform;
+          var blendMode = skeletonSlot.blendMode;
+          renderState.push(worldMatrix, 1.0, blendMode);
+          display.render(renderState);
+          renderState.pop();
+        }
       }
     }
 
@@ -142,61 +151,6 @@ class Skeleton extends InteractiveObject implements Animatable {
         renderState.renderTriangle(-3, -3, 3, 3, -3, 3, Color.Green);
         renderState.pop();
       }
-    }
-  }
-
-  //---------------------------------------------------------------------------
-
-  void _renderSlotsWebGL(RenderState renderState) {
-
-    var renderContext = renderState.renderContext as RenderContextWebGL;
-    var renderProgram = renderContext.renderProgramTinted;
-    renderContext.activateRenderProgram(renderProgram);
-
-    for (var skeletonSlot in _skeletonSlots) {
-
-      var display = skeletonSlot.display;
-      var worldMatrix = skeletonSlot.worldMatrix;
-      var colorTransform = skeletonSlot.colorTransform;
-      var blendMode = skeletonSlot.blendMode;
-
-      renderState.push(worldMatrix, 1.0, blendMode);
-
-      if (display is SkeletonSlotDisplayImage) {
-        var renderTextureQuad = display.renderTextureQuad;
-        var renderTexture = display.renderTextureQuad.renderTexture;
-        renderContext.activateRenderTexture(renderTexture);
-        renderContext.activateBlendMode(renderState.globalBlendMode);
-        renderProgram.renderTextureMesh(
-            renderState,
-            renderTextureQuad.ixList,
-            renderTextureQuad.vxList,
-            colorTransform.redMultiplier,
-            colorTransform.greenMultiplier,
-            colorTransform.blueMultiplier,
-            colorTransform.alphaMultiplier);
-      }
-
-      renderState.pop();
-    }
-  }
-
-  void _renderSlotsCanvas(RenderState renderState) {
-
-    for (var skeletonSlot in _skeletonSlots) {
-
-      var display = skeletonSlot.display;
-      var worldMatrix = skeletonSlot.worldMatrix;
-      var colorTransform = skeletonSlot.colorTransform;
-      var blendMode = skeletonSlot.blendMode;
-
-      renderState.push(worldMatrix, colorTransform.alphaMultiplier, blendMode);
-
-      if (display is SkeletonSlotDisplayImage) {
-        renderState.renderTextureQuad(display.renderTextureQuad);
-      }
-
-      renderState.pop();
     }
   }
 

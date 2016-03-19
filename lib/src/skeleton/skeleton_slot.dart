@@ -11,7 +11,7 @@ class SkeletonSlot {
   ColorTransform colorTransform = new ColorTransform();
   BlendMode blendMode = BlendMode.NORMAL;
   SkeletonSlotDisplay display = null;
-  int displayIndex = -1;
+  int displayIndex = 0;
 
   SkeletonSlot(this.slot, this.parent)
       : _skeletonSlotAnimations = new List<SkeletonSlotAnimation>();

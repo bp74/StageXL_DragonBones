@@ -76,7 +76,7 @@ class _DragonBonesParserJson4 {
         _getInt(data, "playTimes", 0),
         _getList(data, "bone", _parseAnimationBone),
         _getList(data, "slot", _parseAnimationSlot),
-        _getList(data, "ffd", _parseAnimationFfd));
+        _getList(data, "ffd", _parseAnimationFree));
   }
 
   static AnimationBone _parseAnimationBone(Map data) {
@@ -91,12 +91,12 @@ class _DragonBonesParserJson4 {
         _getList(data, "frame", _parseAnimationSlotFrame));
   }
 
-  static AnimationFfd _parseAnimationFfd(Map data) {
-    return new AnimationFfd(
+  static AnimationFree _parseAnimationFree(Map data) {
+    return new AnimationFree(
         _getString(data, "name", ""),
         _getString(data, "slot", ""),
         _getString(data, "skin", ""),
-        _getList(data, "frame", _parseAnimationFfdFrame));
+        _getList(data, "frame", _parseAnimationFreeFrame));
   }
 
   static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
@@ -117,8 +117,8 @@ class _DragonBonesParserJson4 {
         _getCurve(data, "curve"));
   }
 
-  static AnimationFfdFrame _parseAnimationFfdFrame(Map data) {
-    return new AnimationFfdFrame(
+  static AnimationFreeFrame _parseAnimationFreeFrame(Map data) {
+    return new AnimationFreeFrame(
         _getInt(data, "duration", 0),
         _getInt(data, "offset", 0),
         _getFloat32List(data, "vertices", (v) => double.parse(v)),
