@@ -8,6 +8,8 @@ import 'package:stagexl/stagexl.dart';
 part 'src/data/animation.dart';
 part 'src/data/animation_bone.dart';
 part 'src/data/animation_bone_frame.dart';
+part 'src/data/animation_ffd.dart';
+part 'src/data/animation_ffd_frame.dart';
 part 'src/data/animation_slot.dart';
 part 'src/data/animation_slot_frame.dart';
 part 'src/data/armature.dart';

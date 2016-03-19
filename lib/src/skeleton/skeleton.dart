@@ -72,7 +72,10 @@ class Skeleton extends InteractiveObject implements Animatable {
           var ssd = new SkeletonSlotDisplayImage(display, renderTextureQuad);
           skeletonSlot.displays.add(ssd);
         } else if (display.type == "mesh") {
-          throw new StateError("Mesh currently not supported");
+          var bitmapData = textureAtlas.getBitmapData(display.name);
+          var renderTextureQuad = bitmapData.renderTextureQuad;
+          var ssd = new SkeletonSlotDisplayMesh(display, renderTextureQuad);
+          skeletonSlot.displays.add(ssd);
         } else if (display.type == "armature") {
           var ssd = new SkeletonSlotDisplayArmature(display);
           skeletonSlot.displays.add(ssd);

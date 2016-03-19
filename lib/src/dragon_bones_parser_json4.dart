@@ -52,10 +52,19 @@ class _DragonBonesParserJson4 {
   }
 
   static Display _parseDisplay(Map data) {
-    return new Display(
-        _getString(data, "name", ""),
-        _getString(data, "type", ""),
-        _getTransform(data, "transform"));
+    var name = _getString(data, "name", "");
+    var type = _getString(data, "type", "");
+    var transform = _getTransform(data, "transform");
+
+    if (type == "mesh") {
+      var vertices = _getFloat32List(data, "vertices", (v) => double.parse(v));
+      var uvs = _getFloat32List(data, "uvs", (v) => double.parse(v));
+      var triangles = _getInt16List(data, "triangles", (v) => v);
+      var edges = _getInt16List(data, "edges", (v) => v);
+      return new DisplayMesh(name, type, transform, vertices, uvs, triangles, edges);
+    } else {
+      return new Display(name, type, transform);
+    }
   }
 
   //---------------------------------------------------------------------------
@@ -66,7 +75,8 @@ class _DragonBonesParserJson4 {
         _getInt(data, "duration", 0),
         _getInt(data, "playTimes", 0),
         _getList(data, "bone", _parseAnimationBone),
-        _getList(data, "slot", _parseAnimationSlot));
+        _getList(data, "slot", _parseAnimationSlot),
+        _getList(data, "ffd", _parseAnimationFfd));
   }
 
   static AnimationBone _parseAnimationBone(Map data) {
@@ -79,6 +89,14 @@ class _DragonBonesParserJson4 {
     return new AnimationSlot(
         _getString(data, "name", ""),
         _getList(data, "frame", _parseAnimationSlotFrame));
+  }
+
+  static AnimationFfd _parseAnimationFfd(Map data) {
+    return new AnimationFfd(
+        _getString(data, "name", ""),
+        _getString(data, "slot", ""),
+        _getString(data, "skin", ""),
+        _getList(data, "frame", _parseAnimationFfdFrame));
   }
 
   static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
@@ -96,6 +114,15 @@ class _DragonBonesParserJson4 {
         _getInt(data, "displayIndex", 0),
         _getInt(data, "z", 0),
         _getColorTransform(data, "color"),
+        _getCurve(data, "curve"));
+  }
+
+  static AnimationFfdFrame _parseAnimationFfdFrame(Map data) {
+    return new AnimationFfdFrame(
+        _getInt(data, "duration", 0),
+        _getInt(data, "offset", 0),
+        _getFloat32List(data, "vertices", (v) => double.parse(v)),
+        _getDoubleOrNull(data, "tweenEasing", 10.0),
         _getCurve(data, "curve"));
   }
 
@@ -143,6 +170,18 @@ class _DragonBonesParserJson4 {
   static List _getList(Map data, String key, parser) {
     var value = data.containsKey(key) ? data[key] : new List();
     return value.map(parser).toList(growable: false);
+  }
+
+  static Int16List _getInt16List(Map data, String key, parser) {
+    var value = data.containsKey(key) ? data[key] : new List();
+    var list = value.map(parser).toList(growable: false);
+    return new Int16List.fromList(list);
+  }
+
+  static Float32List _getFloat32List(Map data, String key, parser) {
+    var value = data.containsKey(key) ? data[key] : new List();
+    var list = value.map(parser).toList(growable: false);
+    return new Float32List.fromList(list);
   }
 
   //---------------------------------------------------------------------------
