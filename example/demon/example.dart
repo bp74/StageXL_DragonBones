@@ -10,7 +10,7 @@ Future main() async {
 
   StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
   StageXL.stageOptions.backgroundColor = Color.AliceBlue;
-  StageXL.bitmapDataLoadOptions.webp = true;
+  StageXL.bitmapDataLoadOptions.webp = false;
 
   // init Stage and RenderLoop
 
@@ -22,7 +22,7 @@ Future main() async {
   // load the skeleton resources
 
   var resourceManager = new ResourceManager();
-  resourceManager.addTextureAtlas("demonTexture", "assets/texture.json");
+  resourceManager.addTextureAtlas("demonTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
   resourceManager.addTextFile("demonJson", "assets/demon.json");
   await resourceManager.load();
 

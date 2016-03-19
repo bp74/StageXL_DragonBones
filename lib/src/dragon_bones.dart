@@ -21,6 +21,7 @@ class DragonBones {
     var data = JSON.decode(json);
     var version = data["version"];
     if (version == "4.0") return _DragonBonesParserJson4.parse(data);
+    if (version == "4.5") return _DragonBonesParserJson4.parse(data);
     throw new ArgumentError("Unsupported format.");
   }
 
