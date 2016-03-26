@@ -1,5 +1,15 @@
 # Changelog
 
-## 0.0.1
+This file contains highlights of what changes on each version of the 
+StageXL_DragonBones package. This file is normally updated whenever 
+we push a new version to pub.
 
-- Initial version, created by Stagehand
+## 0.2.0
+ 
+ * Added support for meshes.
+ * Added support for free form deformations.
+ * Support for DragonBones 4.5 (without IK)
+
+## 0.1.0
+  
+ * Initial version, created by Stagehand
