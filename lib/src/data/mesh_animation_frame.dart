@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class AnimationFormFrame {
+class MeshAnimationFrame {
 
   // tweenEasing
   // null    : no tween
@@ -16,7 +16,7 @@ class AnimationFormFrame {
   final double tweenEasing;
   final Curve curve;
 
-  AnimationFormFrame(
+  MeshAnimationFrame(
       this.duration,
       this.offset,
       this.vertices,

@@ -1,11 +1,11 @@
 part of stagexl_dragonbones;
 
-abstract class SkeletonSlotDisplay {
+abstract class SkeletonDisplay {
 
   final Display display;
   final Matrix matrix = new Matrix.fromIdentity();
 
-  SkeletonSlotDisplay(this.display) {
+  SkeletonDisplay(this.display) {
     matrix.copyFrom(display.transform.matrix);
   }
 

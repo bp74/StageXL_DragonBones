@@ -1,12 +1,12 @@
 part of stagexl_dragonbones;
 
-class SkeletonSlotDisplayMesh extends SkeletonSlotDisplay {
+class SkeletonDisplayMesh extends SkeletonDisplay {
 
   final RenderTextureQuad renderTextureQuad;
   final Float32List vxList;
   final Int16List ixList;
 
-  SkeletonSlotDisplayMesh(DisplayMesh mesh, this.renderTextureQuad)
+  SkeletonDisplayMesh(Mesh mesh, this.renderTextureQuad)
       : this.vxList = new Float32List(mesh.vertices.length + mesh.uvs.length),
         this.ixList = mesh.triangles,
         super(mesh) {

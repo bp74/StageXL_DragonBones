@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class AnimationBoneFrame {
+class BoneAnimationFrame {
 
   // tweenEasing
   // null    : no tween
@@ -15,7 +15,7 @@ class AnimationBoneFrame {
   final Transform transform;
   final Curve curve;
 
-  AnimationBoneFrame(
+  BoneAnimationFrame(
       this.duration,
       this.tweenEasing,
       this.transform,

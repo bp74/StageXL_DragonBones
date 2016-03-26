@@ -10,7 +10,8 @@ class Skeleton extends InteractiveObject implements Animatable {
   int frameRate = 24;
   bool showBones = false;
   bool showSlots = true;
-  String _skinName = null;
+
+  Skin _skin;
 
   //---------------------------------------------------------------------------
 
@@ -45,7 +46,7 @@ class Skeleton extends InteractiveObject implements Animatable {
       skeletonBone.advanceFrameTime(deltaFrameTime);
     }
 
-    for(var skeletonSlot in _skeletonSlots) {
+    for (var skeletonSlot in _skeletonSlots) {
       skeletonSlot.advanceFrameTime(deltaFrameTime);
     }
 
@@ -59,29 +60,26 @@ class Skeleton extends InteractiveObject implements Animatable {
     var skin = this.armature.getSkin(skinName);
     if (skin == null) throw new ArgumentError("skinName");
 
-    _skinName = skin.name;
+    _skin = skin;
 
     for (var skeletonSlot in _skeletonSlots) {
-
       skeletonSlot.displays.clear();
-
       var skinSlot = skin.getSkinSlot(skeletonSlot.slot.name);
       if (skinSlot == null) continue;
-
       for (var display in skinSlot.displays) {
         if (display.type == "image") {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
-          var ssd = new SkeletonSlotDisplayImage(display, renderTextureQuad);
-          skeletonSlot.displays.add(ssd);
+          var sd = new SkeletonDisplayImage(display, renderTextureQuad);
+          skeletonSlot.displays.add(sd);
         } else if (display.type == "mesh") {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
-          var ssd = new SkeletonSlotDisplayMesh(display, renderTextureQuad);
-          skeletonSlot.displays.add(ssd);
+          var sd = new SkeletonDisplayMesh(display, renderTextureQuad);
+          skeletonSlot.displays.add(sd);
         } else if (display.type == "armature") {
-          var ssd = new SkeletonSlotDisplayArmature(display);
-          skeletonSlot.displays.add(ssd);
+          var sd = new SkeletonDisplayArmature(display);
+          skeletonSlot.displays.add(sd);
         }
       }
     }
@@ -96,21 +94,31 @@ class Skeleton extends InteractiveObject implements Animatable {
 
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
-      var animationBone = animation.getAnimationBone(boneName);
-      if (animationBone != null) {
-        var sba = new SkeletonBoneAnimation(animation, animationBone);
-        skeletonBone.addSkeletonBoneAnimation(sba);
-      }
+      var animationBone = animation.getBoneAnimation(boneName);
+      if (animationBone == null) continue;
+      var sa = new SkeletonBoneAnimation(animation, animationBone);
+      skeletonBone.addSkeletonAnimationBone(sa);
     }
 
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
-      var animationSlot = animation.getAnimationSlot(slotName);
-      if (animationSlot != null) {
-        var ssa = new SkeletonSlotAnimation(animation, animationSlot);
-        skeletonSlot.addSkeletonSlotAnimation(ssa);
-      }
+      var animationSlot = animation.getSlotAnimation(slotName);
+      if (animationSlot == null) continue;
+      var sa = new SkeletonSlotAnimation(animation, animationSlot);
+      skeletonSlot.addSkeletonAnimationSlot(sa);
     }
+
+    for (var skeletonSlot in _skeletonSlots) {
+      var slotName = skeletonSlot.slot.name;
+      var skinName = _skin?.name;
+      var animationMesh = animation.getMeshAnimation(slotName, skinName);
+      if (animationMesh == null) continue;
+      var sa = new SkeletonMeshAnimation(animation, animationMesh);
+      skeletonSlot.addSkeletonAnimationMesh(sa);
+    }
+
+    //this.armature.getSkin()
+
   }
 
   //---------------------------------------------------------------------------

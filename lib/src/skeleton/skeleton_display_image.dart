@@ -1,10 +1,10 @@
 part of stagexl_dragonbones;
 
-class SkeletonSlotDisplayImage extends SkeletonSlotDisplay {
+class SkeletonDisplayImage extends SkeletonDisplay {
 
   final RenderTextureQuad renderTextureQuad;
 
-  SkeletonSlotDisplayImage(Display display, this.renderTextureQuad)
+  SkeletonDisplayImage(Display display, this.renderTextureQuad)
       : super(display) {
 
     var pivotX = renderTextureQuad.targetWidth / 2;

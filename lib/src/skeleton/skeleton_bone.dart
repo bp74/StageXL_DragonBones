@@ -7,17 +7,17 @@ class SkeletonBone {
   final Matrix worldMatrix = new Matrix.fromIdentity();
 
   final Transform _transform;
-  final List<SkeletonBoneAnimation> _skeletonBoneAnimations;
+  final List<SkeletonBoneAnimation> _boneAnimations;
 
   SkeletonBone(this.bone, this.parent)
       : _transform = new Transform(),
-        _skeletonBoneAnimations = new List<SkeletonBoneAnimation>();
+        _boneAnimations = new List<SkeletonBoneAnimation>();
 
   //---------------------------------------------------------------------------
 
-  void addSkeletonBoneAnimation(SkeletonBoneAnimation skeletonBoneAnimation) {
-    _skeletonBoneAnimations.clear();
-    _skeletonBoneAnimations.add(skeletonBoneAnimation);
+  void addSkeletonAnimationBone(SkeletonBoneAnimation animation) {
+    _boneAnimations.clear();
+    _boneAnimations.add(animation);
   }
 
   //---------------------------------------------------------------------------
@@ -26,9 +26,9 @@ class SkeletonBone {
 
     _transform.copyFrom(bone.transform);
 
-    for (var skeletonBoneAnimation in _skeletonBoneAnimations) {
-      skeletonBoneAnimation.advanceFrameTime(deltaFrameTime);
-      _transform.concat(skeletonBoneAnimation.transform);
+    for (var animation in _boneAnimations) {
+      animation.advanceFrameTime(deltaFrameTime);
+      _transform.concat(animation.transform);
     }
 
     if (parent != null) {

@@ -37,7 +37,7 @@ Future main() async {
   skeleton.play("stand");
   skeleton.x = 430;
   skeleton.y = 520;
-  skeleton.showBones = true;
+  skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

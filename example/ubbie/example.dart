@@ -34,10 +34,10 @@ Future main() async {
   var skeleton = dragonBones.createSkeleton("ubbie");
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("walk");
+  skeleton.play("stand");
   skeleton.x = 350;
   skeleton.y = 700;
-  skeleton.showBones = true;
+  skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
 

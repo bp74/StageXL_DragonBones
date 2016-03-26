@@ -3,13 +3,13 @@ part of stagexl_dragonbones;
 class SkeletonSlotAnimation {
 
   final Animation animation;
-  final AnimationSlot animationSlot;
+  final SlotAnimation slotAnimation;
   final ColorTransform colorTransform = new ColorTransform();
 
   int displayIndex = 0;
   double frameTime = 0.0;
 
-  SkeletonSlotAnimation(this.animation, this.animationSlot);
+  SkeletonSlotAnimation(this.animation, this.slotAnimation);
 
   //---------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ class SkeletonSlotAnimation {
 
     // TODO: auto tween
 
-    var frames = animationSlot.frames;
+    var frames = slotAnimation.frames;
     var framePosition = frameTime % animation.duration;
     var frameOffset = 0.0;
 

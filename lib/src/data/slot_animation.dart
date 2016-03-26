@@ -1,11 +1,11 @@
 part of stagexl_dragonbones;
 
-class AnimationSlot {
+class SlotAnimation {
 
   final String name;
-  final List<AnimationSlotFrame> frames;
+  final List<SlotAnimationFrame> frames;
 
-  AnimationSlot(this.name, this.frames);
+  SlotAnimation(this.name, this.frames);
 
   //---------------------------------------------------------------------------
 

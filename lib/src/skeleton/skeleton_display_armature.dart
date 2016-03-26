@@ -1,8 +1,8 @@
 part of stagexl_dragonbones;
 
-class SkeletonSlotDisplayArmature extends SkeletonSlotDisplay {
+class SkeletonDisplayArmature extends SkeletonDisplay {
 
-  SkeletonSlotDisplayArmature(Display display) : super(display);
+  SkeletonDisplayArmature(Display display) : super(display);
 
   //---------------------------------------------------------------------------
 

@@ -6,37 +6,38 @@ class Animation {
   final int duration;
   final int playTimes;
 
-  final List<AnimationBone> bones;
-  final List<AnimationSlot> slots;
-  final List<AnimationForm> forms;
+  final List<BoneAnimation> boneAnimations;
+  final List<SlotAnimation> slotAnimations;
+  final List<MeshAnimation> meshAnimations;
 
   Animation(
       this.name,
       this.duration,
       this.playTimes,
-      this.bones,
-      this.slots,
-      this.forms);
+      this.boneAnimations,
+      this.slotAnimations,
+      this.meshAnimations);
 
   //---------------------------------------------------------------------------
 
-  AnimationBone getAnimationBone(String boneName) {
-    for (var bone in bones) {
-      if (bone.name == boneName) return bone;
+  BoneAnimation getBoneAnimation(String boneName) {
+    for (var animation in boneAnimations) {
+      if (animation.name == boneName) return animation;
     }
     return null;
   }
 
-  AnimationSlot getAnimationSlot(String slotName) {
-    for (var slot in slots) {
-      if (slot.name == slotName) return slot;
+  SlotAnimation getSlotAnimation(String slotName) {
+    for (var animation in slotAnimations) {
+      if (animation.name == slotName) return animation;
     }
     return null;
   }
 
-  AnimationForm getAnimationFree(String slotName, String skinName) {
-    for (var form in forms) {
-      if (form.slotName == slotName && form.skinName == skinName) return form;
+  MeshAnimation getMeshAnimation(String slotName, String skinName) {
+    for (var animation in meshAnimations) {
+      if (animation.slotName == slotName &&
+          animation.skinName == skinName) return animation;
     }
     return null;
   }

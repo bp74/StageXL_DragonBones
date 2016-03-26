@@ -3,12 +3,12 @@ part of stagexl_dragonbones;
 class SkeletonBoneAnimation {
 
   final Animation animation;
-  final AnimationBone animationBone;
+  final BoneAnimation boneAnimation;
   final Transform transform = new Transform();
 
   double frameTime = 0.0;
 
-  SkeletonBoneAnimation(this.animation, this.animationBone);
+  SkeletonBoneAnimation(this.animation, this.boneAnimation);
 
   //---------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ class SkeletonBoneAnimation {
 
     // TODO: auto tween
 
-    var frames = animationBone.frames;
+    var frames = boneAnimation.frames;
     var framePosition = frameTime  % animation.duration;
     var frameOffset = 0.0;
 

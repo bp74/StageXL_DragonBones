@@ -1,11 +1,11 @@
 part of stagexl_dragonbones;
 
-class AnimationBone {
+class BoneAnimation {
 
   final String name;
-  final List<AnimationBoneFrame> frames;
+  final List<BoneAnimationFrame> frames;
 
-  AnimationBone(this.name, this.frames);
+  BoneAnimation(this.name, this.frames);
 
   //---------------------------------------------------------------------------
 

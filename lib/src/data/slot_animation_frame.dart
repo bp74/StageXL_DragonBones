@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class AnimationSlotFrame {
+class SlotAnimationFrame {
 
   // tweenEasing
   // null    : no tween
@@ -17,7 +17,7 @@ class AnimationSlotFrame {
   final ColorTransform colorTransform;
   final Curve curve;
 
-  AnimationSlotFrame(
+  SlotAnimationFrame(
       this.duration,
       this.tweenEasing,
       this.displayIndex,

@@ -61,7 +61,7 @@ class _DragonBonesParserJson4 {
       var uvs = _getFloat32List(data, "uvs", (v) => double.parse(v));
       var triangles = _getInt16List(data, "triangles", (v) => v);
       var edges = _getInt16List(data, "edges", (v) => v);
-      return new DisplayMesh(name, type, transform, vertices, uvs, triangles, edges);
+      return new Mesh(name, type, transform, vertices, uvs, triangles, edges);
     } else {
       return new Display(name, type, transform);
     }
@@ -76,39 +76,39 @@ class _DragonBonesParserJson4 {
         _getInt(data, "playTimes", 0),
         _getList(data, "bone", _parseAnimationBone),
         _getList(data, "slot", _parseAnimationSlot),
-        _getList(data, "ffd", _parseAnimationForm));
+        _getList(data, "ffd", _parseAnimationMesh));
   }
 
-  static AnimationBone _parseAnimationBone(Map data) {
-    return new AnimationBone(
+  static BoneAnimation _parseAnimationBone(Map data) {
+    return new BoneAnimation(
         _getString(data, "name", ""),
         _getList(data, "frame", _parseAnimationBoneFrame));
   }
 
-  static AnimationSlot _parseAnimationSlot(Map data) {
-    return new AnimationSlot(
+  static SlotAnimation _parseAnimationSlot(Map data) {
+    return new SlotAnimation(
         _getString(data, "name", ""),
         _getList(data, "frame", _parseAnimationSlotFrame));
   }
 
-  static AnimationForm _parseAnimationForm(Map data) {
-    return new AnimationForm(
+  static MeshAnimation _parseAnimationMesh(Map data) {
+    return new MeshAnimation(
         _getString(data, "name", ""),
         _getString(data, "slot", ""),
         _getString(data, "skin", ""),
-        _getList(data, "frame", _parseAnimationFormFrame));
+        _getList(data, "frame", _parseAnimationMeshFrame));
   }
 
-  static AnimationBoneFrame _parseAnimationBoneFrame(Map data) {
-    return new AnimationBoneFrame(
+  static BoneAnimationFrame _parseAnimationBoneFrame(Map data) {
+    return new BoneAnimationFrame(
         _getInt(data, "duration", 0),
         _getDoubleOrNull(data, "tweenEasing", 10.0),
         _getTransform(data, "transform"),
         _getCurve(data, "curve"));
   }
 
-  static AnimationSlotFrame _parseAnimationSlotFrame(Map data) {
-    return new AnimationSlotFrame(
+  static SlotAnimationFrame _parseAnimationSlotFrame(Map data) {
+    return new SlotAnimationFrame(
         _getInt(data, "duration", 0),
         _getDoubleOrNull(data, "tweenEasing", 10.0),
         _getInt(data, "displayIndex", 0),
@@ -117,8 +117,8 @@ class _DragonBonesParserJson4 {
         _getCurve(data, "curve"));
   }
 
-  static AnimationFormFrame _parseAnimationFormFrame(Map data) {
-    return new AnimationFormFrame(
+  static MeshAnimationFrame _parseAnimationMeshFrame(Map data) {
+    return new MeshAnimationFrame(
         _getInt(data, "duration", 0),
         _getInt(data, "offset", 0),
         _getFloat32List(data, "vertices", (v) => double.parse(v)),
