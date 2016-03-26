@@ -11,6 +11,7 @@ Find more information here: <https://dragonbones.github.io/>
 
 http://www.stagexl.org/show/dragonbones/dragon/example.html
 http://www.stagexl.org/show/dragonbones/dragon_new/example.html
+http://www.stagexl.org/show/dragonbones/swords_man/example.html
 http://www.stagexl.org/show/dragonbones/demon/example.html
 http://www.stagexl.org/show/dragonbones/ubbie/example.html
 
