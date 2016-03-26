@@ -100,30 +100,32 @@ class _DragonBonesParserJson4 {
   }
 
   static BoneAnimationFrame _parseAnimationBoneFrame(Map data) {
-    return new BoneAnimationFrame(
-        _getInt(data, "duration", 0),
-        _getDoubleOrNull(data, "tweenEasing", 10.0),
-        _getTransform(data, "transform"),
-        _getCurve(data, "curve"));
+    var duration = _getInt(data, "duration", 0);
+    var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
+    var transform = _getTransform(data, "transform");
+    var curve = _getCurve(data, "curve");
+    return new BoneAnimationFrame(duration, curve, easing, transform);
   }
 
   static SlotAnimationFrame _parseAnimationSlotFrame(Map data) {
+    var duration = _getInt(data, "duration", 0);
+    var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
+    var displayIndex = _getInt(data, "displayIndex", 0);
+    var zOrder = _getInt(data, "z", 0);
+    var colorTransform = _getColorTransform(data, "color");
+    var curve = _getCurve(data, "curve");
     return new SlotAnimationFrame(
-        _getInt(data, "duration", 0),
-        _getDoubleOrNull(data, "tweenEasing", 10.0),
-        _getInt(data, "displayIndex", 0),
-        _getInt(data, "z", 0),
-        _getColorTransform(data, "color"),
-        _getCurve(data, "curve"));
+        duration, curve, easing,
+        colorTransform, displayIndex, zOrder);
   }
 
   static MeshAnimationFrame _parseAnimationMeshFrame(Map data) {
-    return new MeshAnimationFrame(
-        _getInt(data, "duration", 0),
-        _getInt(data, "offset", 0),
-        _getFloat32List(data, "vertices", (v) => double.parse(v)),
-        _getDoubleOrNull(data, "tweenEasing", 10.0),
-        _getCurve(data, "curve"));
+    var duration = _getInt(data, "duration", 0);
+    var offset = _getInt(data, "offset", 0);
+    var vertices = _getFloat32List(data, "vertices", (v) => double.parse(v));
+    var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
+    var curve = _getCurve(data, "curve");
+    return new MeshAnimationFrame(duration, curve, easing, offset, vertices);
   }
 
   //---------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class BoneAnimation {
+class BoneAnimation implements AnimationObject {
 
   final String name;
   final List<BoneAnimationFrame> frames;

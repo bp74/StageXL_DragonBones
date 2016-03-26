@@ -28,7 +28,7 @@ class SkeletonBone {
 
     for (var animation in _boneAnimations) {
       animation.advanceFrameTime(deltaFrameTime);
-      _transform.concat(animation.transform);
+      animation.update(_transform);
     }
 
     if (parent != null) {

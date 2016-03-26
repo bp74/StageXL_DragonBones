@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class MeshAnimation {
+class MeshAnimation implements AnimationObject {
 
   final String name;
   final String slotName;

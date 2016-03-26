@@ -94,30 +94,28 @@ class Skeleton extends InteractiveObject implements Animatable {
 
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
-      var animationBone = animation.getBoneAnimation(boneName);
-      if (animationBone == null) continue;
-      var sa = new SkeletonBoneAnimation(animation, animationBone);
+      var boneAnimation = animation.getBoneAnimation(boneName);
+      if (boneAnimation == null) continue;
+      var sa = new SkeletonBoneAnimation(animation, boneAnimation);
       skeletonBone.addSkeletonAnimationBone(sa);
     }
 
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
-      var animationSlot = animation.getSlotAnimation(slotName);
-      if (animationSlot == null) continue;
-      var sa = new SkeletonSlotAnimation(animation, animationSlot);
+      var slotAnimation = animation.getSlotAnimation(slotName);
+      if (slotAnimation == null) continue;
+      var sa = new SkeletonSlotAnimation(animation, slotAnimation);
       skeletonSlot.addSkeletonAnimationSlot(sa);
     }
 
     for (var skeletonSlot in _skeletonSlots) {
       var slotName = skeletonSlot.slot.name;
       var skinName = _skin?.name;
-      var animationMesh = animation.getMeshAnimation(slotName, skinName);
-      if (animationMesh == null) continue;
-      var sa = new SkeletonMeshAnimation(animation, animationMesh);
+      var meshAnimation = animation.getMeshAnimation(slotName, skinName);
+      if (meshAnimation == null) continue;
+      var sa = new SkeletonMeshAnimation(animation, meshAnimation);
       skeletonSlot.addSkeletonAnimationMesh(sa);
     }
-
-    //this.armature.getSkin()
 
   }
 

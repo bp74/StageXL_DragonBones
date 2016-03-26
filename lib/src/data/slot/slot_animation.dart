@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-class SlotAnimation {
+class SlotAnimation implements AnimationObject {
 
   final String name;
   final List<SlotAnimationFrame> frames;
