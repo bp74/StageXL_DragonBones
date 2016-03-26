@@ -36,6 +36,7 @@ class _DragonBonesParserJson4 {
     return new Slot(
         _getString(data, "name", ""),
         _getString(data, "parent", null),
+        _getInt(data, "displayIndex", 0),
         _getInt(data, "z", 0));
   }
 

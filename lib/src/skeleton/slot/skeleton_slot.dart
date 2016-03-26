@@ -35,6 +35,7 @@ class SkeletonSlot extends SkeletonObject {
   void advanceFrameTime(double deltaFrameTime) {
 
     colorTransform.reset();
+    displayIndex = slot.displayIndex;
 
     for (var animation in _slotAnimations) {
       animation.advanceFrameTime(deltaFrameTime);
