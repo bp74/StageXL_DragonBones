@@ -1,6 +1,6 @@
 part of stagexl_dragonbones;
 
-abstract class SkeletonDisplay {
+abstract class SkeletonDisplay extends SkeletonObject {
 
   final Display display;
   final Matrix matrix = new Matrix.fromIdentity();

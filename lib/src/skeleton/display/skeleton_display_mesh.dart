@@ -30,6 +30,17 @@ class SkeletonDisplayMesh extends SkeletonDisplay {
 
   //---------------------------------------------------------------------------
 
+  void resetVertices() {
+    Mesh mesh = this.display;
+    Float32List vertices = mesh.vertices;
+    for (int i = 0, o = 0; i < vertices.length - 1; i += 2, o += 4) {
+      vxList[o + 0] = vertices[i + 0];
+      vxList[o + 1] = vertices[i + 1];
+    }
+  }
+
+  //---------------------------------------------------------------------------
+
   @override
   void render(RenderState renderState) {
 

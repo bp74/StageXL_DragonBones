@@ -97,7 +97,7 @@ class Skeleton extends InteractiveObject implements Animatable {
       var boneAnimation = animation.getBoneAnimation(boneName);
       if (boneAnimation == null) continue;
       var sa = new SkeletonBoneAnimation(animation, boneAnimation);
-      skeletonBone.addSkeletonAnimationBone(sa);
+      skeletonBone.addSkeletonBoneAnimation(sa);
     }
 
     for (var skeletonSlot in _skeletonSlots) {
@@ -105,7 +105,7 @@ class Skeleton extends InteractiveObject implements Animatable {
       var slotAnimation = animation.getSlotAnimation(slotName);
       if (slotAnimation == null) continue;
       var sa = new SkeletonSlotAnimation(animation, slotAnimation);
-      skeletonSlot.addSkeletonAnimationSlot(sa);
+      skeletonSlot.addSkeletonSlotAnimation(sa);
     }
 
     for (var skeletonSlot in _skeletonSlots) {
@@ -113,8 +113,8 @@ class Skeleton extends InteractiveObject implements Animatable {
       var skinName = _skin?.name;
       var meshAnimation = animation.getMeshAnimation(slotName, skinName);
       if (meshAnimation == null) continue;
-      var sa = new SkeletonMeshAnimation(animation, meshAnimation);
-      skeletonSlot.addSkeletonAnimationMesh(sa);
+      var sa = new SkeletonDisplayMeshAnimation(animation, meshAnimation);
+      skeletonSlot.addSkeletonMeshAnimation(sa);
     }
 
   }

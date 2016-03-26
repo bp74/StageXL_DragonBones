@@ -1,13 +1,13 @@
 part of stagexl_dragonbones;
 
-class SkeletonSlot {
+class SkeletonSlot extends SkeletonObject {
 
   final Slot slot;
   final SkeletonBone parent;
   final Matrix worldMatrix = new Matrix.fromIdentity();
   final List<SkeletonDisplay> displays = new List<SkeletonDisplay>();
   final List<SkeletonSlotAnimation> _slotAnimations;
-  final List<SkeletonMeshAnimation> _meshAnimations;
+  final List<SkeletonDisplayMeshAnimation> _meshAnimations;
 
   ColorTransform colorTransform = new ColorTransform();
   BlendMode blendMode = BlendMode.NORMAL;
@@ -16,16 +16,16 @@ class SkeletonSlot {
 
   SkeletonSlot(this.slot, this.parent)
       : _slotAnimations = new List<SkeletonSlotAnimation>(),
-        _meshAnimations = new List<SkeletonMeshAnimation>();
+        _meshAnimations = new List<SkeletonDisplayMeshAnimation>();
 
   //---------------------------------------------------------------------------
 
-  void addSkeletonAnimationSlot(SkeletonSlotAnimation animation) {
+  void addSkeletonSlotAnimation(SkeletonSlotAnimation animation) {
     _slotAnimations.clear();
     _slotAnimations.add(animation);
   }
 
-  void addSkeletonAnimationMesh(SkeletonMeshAnimation animation) {
+  void addSkeletonMeshAnimation(SkeletonDisplayMeshAnimation animation) {
     _meshAnimations.clear();
     _meshAnimations.add(animation);
   }
@@ -38,8 +38,7 @@ class SkeletonSlot {
 
     for (var animation in _slotAnimations) {
       animation.advanceFrameTime(deltaFrameTime);
-      colorTransform.concat(animation.colorTransform);
-      displayIndex = animation.displayIndex;
+      animation.update(this);
     }
 
     if (displayIndex >= 0 && displayIndex < displays.length) {
@@ -50,10 +49,11 @@ class SkeletonSlot {
       worldMatrix.copyFrom(parent.worldMatrix);
     }
 
-    for (var animation in _meshAnimations) {
-      animation.advanceFrameTime(deltaFrameTime);
-      var displayMesh = display;
-      if (displayMesh is SkeletonDisplayMesh) {
+    var displayMesh = display;
+    if (displayMesh is SkeletonDisplayMesh && _meshAnimations.length > 0) {
+      displayMesh.resetVertices();
+      for (var animation in _meshAnimations) {
+        animation.advanceFrameTime(deltaFrameTime);
         animation.update(displayMesh);
       }
     }

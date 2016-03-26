@@ -37,7 +37,7 @@ part 'src/skeleton/display/skeleton_display.dart';
 part 'src/skeleton/display/skeleton_display_armature.dart';
 part 'src/skeleton/display/skeleton_display_image.dart';
 part 'src/skeleton/display/skeleton_display_mesh.dart';
-part 'src/skeleton/display/skeleton_mesh_animation.dart';
+part 'src/skeleton/display/skeleton_display_mesh_animation.dart';
 part 'src/skeleton/slot/skeleton_slot.dart';
 part 'src/skeleton/slot/skeleton_slot_animation.dart';
 

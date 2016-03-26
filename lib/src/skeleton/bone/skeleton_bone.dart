@@ -1,21 +1,20 @@
 part of stagexl_dragonbones;
 
-class SkeletonBone {
+class SkeletonBone extends SkeletonObject {
 
   final Bone bone;
   final SkeletonBone parent;
   final Matrix worldMatrix = new Matrix.fromIdentity();
-
-  final Transform _transform;
   final List<SkeletonBoneAnimation> _boneAnimations;
 
+  final Transform transform  = new Transform();
+
   SkeletonBone(this.bone, this.parent)
-      : _transform = new Transform(),
-        _boneAnimations = new List<SkeletonBoneAnimation>();
+      : _boneAnimations = new List<SkeletonBoneAnimation>();
 
   //---------------------------------------------------------------------------
 
-  void addSkeletonAnimationBone(SkeletonBoneAnimation animation) {
+  void addSkeletonBoneAnimation(SkeletonBoneAnimation animation) {
     _boneAnimations.clear();
     _boneAnimations.add(animation);
   }
@@ -24,19 +23,19 @@ class SkeletonBone {
 
   void advanceFrameTime(double deltaFrameTime) {
 
-    _transform.copyFrom(bone.transform);
+    transform.copyFrom(bone.transform);
 
     for (var animation in _boneAnimations) {
       animation.advanceFrameTime(deltaFrameTime);
-      animation.update(_transform);
+      animation.update(this);
     }
 
     if (parent != null) {
-      var transformMatrix = _transform.matrix;
+      var transformMatrix = transform.matrix;
       var parentMatrix = parent.worldMatrix;
       worldMatrix.copyFromAndConcat(transformMatrix, parentMatrix);
     } else {
-      var transformMatrix = _transform.matrix;
+      var transformMatrix = transform.matrix;
       worldMatrix.copyFrom(transformMatrix);
     }
   }

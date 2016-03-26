@@ -9,24 +9,23 @@ class SkeletonBoneAnimation extends SkeletonObjectAnimation {
 
   //---------------------------------------------------------------------------
 
-  void update(Transform boneTransform) {
+  void update(SkeletonBone skeletonBone) {
 
     if (_frameIndex != null) {
 
-      var frames = baseAnimation.frames;
-
+      var frames = animationObject.frames;
+      var progress = _frameProgress;
       var index0 = _frameIndex;
-      var frame0 = frames[index0];
-      var transform0 = frame0.transform;
-
       var index1 = index0 + 1 < frames.length ? index0 + 1 : index0;
-      var frame1 = frames[index1];
-      var transform1 = frame1.transform;
 
-      _transform.interpolate(transform0, transform1, _frameEasing);
-      boneTransform.concat(_transform);
+      BoneAnimationFrame frame0 = frames[index0];
+      BoneAnimationFrame frame1 = frames[index1];
+      Transform transform0 = frame0.transform;
+      Transform transform1 = frame1.transform;
+
+      _transform.interpolate(transform0, transform1, progress);
+      skeletonBone.transform.concat(_transform);
     }
-
   }
 
 }
