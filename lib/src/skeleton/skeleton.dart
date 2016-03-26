@@ -136,14 +136,17 @@ class Skeleton extends InteractiveObject implements Animatable {
   @override
   void render(RenderState renderState) {
 
+    // TODO: correct implementation of colorTransform for slots
+
     if (showSlots) {
       for (var skeletonSlot in _skeletonSlots) {
         var display = skeletonSlot.display;
         if (display != null) {
           var worldMatrix = skeletonSlot.worldMatrix;
-          //var colorTransform = skeletonSlot.colorTransform;
           var blendMode = skeletonSlot.blendMode;
-          renderState.push(worldMatrix, 1.0, blendMode);
+          // var colorTransform = skeletonSlot.colorTransform;
+          var alpha = skeletonSlot.colorTransform.alphaMultiplier;
+          renderState.push(worldMatrix, alpha, blendMode);
           display.render(renderState);
           renderState.pop();
         }
