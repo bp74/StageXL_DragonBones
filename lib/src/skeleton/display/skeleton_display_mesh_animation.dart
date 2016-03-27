@@ -16,24 +16,22 @@ class SkeletonDisplayMeshAnimation extends SkeletonObjectAnimation {
       var index0 = _frameIndex;
       var index1 = index0 + 1 < frames.length ? index0 + 1 : index0;
 
-      MeshAnimationFrame frame0 = frames[index0];
-      MeshAnimationFrame frame1 = frames[index1];
       Float32List vxList = displayMesh.vxList;
+      MeshAnimationFrame f0 = frames[index0];
+      MeshAnimationFrame f1 = frames[index1];
+      Float32List v0 = f0.vertices;
+      Float32List v1 = f1.vertices;
+      double p0 = (1.0 - progress);
+      double p1 = (0.0 + progress);
 
-      var offset = frame0.offset;
-      var vertices = frame0.vertices;
-
-      for (int i = 0, o = offset * 2; i < vertices.length - 1; i += 2, o += 4) {
-        vxList[o + 0] += vertices[i + 0] * (1.0 - progress);
-        vxList[o + 1] += vertices[i + 1] * (1.0 - progress);
+      for (int i = 0, o = f0.offset * 2; i < v0.length - 1; i += 2, o += 4) {
+        vxList[o + 0] += v0[i + 0] * p0;
+        vxList[o + 1] += v0[i + 1] * p0;
       }
 
-      offset = frame1.offset;
-      vertices = frame1.vertices;
-
-      for (int i = 0, o = offset * 2; i < vertices.length - 1; i += 2, o += 4) {
-        vxList[o + 0] += vertices[i + 0] * progress;
-        vxList[o + 1] += vertices[i + 1] * progress;
+      for (int i = 0, o = f1.offset * 2; i < v1.length - 1; i += 2, o += 4) {
+        vxList[o + 0] += v1[i + 0] * p1;
+        vxList[o + 1] += v1[i + 1] * p1;
       }
     }
   }
