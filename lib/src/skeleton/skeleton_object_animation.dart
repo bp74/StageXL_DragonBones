@@ -29,16 +29,11 @@ class SkeletonObjectAnimation {
         _frameIndex = i;
         _frameProgress = 0.0;
         var frame = frames[i];
-        var frameDuration = frame.duration;
-        var progress = (framePosition - frameOffset) / frameDuration;
-        var tweenEasing = frame.tweenEasing;
-        var tweenCurve = frame.curve;
-        if (tweenCurve is Curve) {
-          _frameProgress = tweenCurve.getValue(progress);
-        } else if (tweenEasing == 10.0) { // auto tween ?
-          _frameProgress = progress;
-        } else if (tweenEasing is num) { // ease in, ease out, ease in out
-          _frameProgress = _getEaseValue(progress, tweenEasing);
+        var progress = (framePosition - frameOffset) / frame.duration;
+        if (frame.curve is Curve) {
+          _frameProgress = frame.curve.getValue(progress);
+        } else if (frame.tweenEasing is num) {
+          _frameProgress = _getEaseValue(progress, frame.tweenEasing);
         }
         break;
       } else {
@@ -46,5 +41,27 @@ class SkeletonObjectAnimation {
       }
     }
   }
+
+  //---------------------------------------------------------------------------
+
+  double _getEaseValue(double value, double easing) {
+
+    double valueEase = 1.0;
+
+    if (easing == 10.0) { // auto tween ?
+      return value;
+    } else if (easing > 1.0) { // ease in out
+      valueEase = 0.5 * (1.0 - math.cos(value * math.PI));
+      easing -= 1.0;
+    } else if (easing > 0.0) { // ease out
+      valueEase = 1.0 - math.pow(1 - value, 2);
+    } else if (easing < 0.0) { // ease in
+      easing *= -1.0;
+      valueEase = math.pow(value, 2.0);
+    }
+
+    return (valueEase - value) * easing + value;
+  }
+
 
 }

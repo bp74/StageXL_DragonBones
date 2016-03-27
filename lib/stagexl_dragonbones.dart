@@ -24,7 +24,6 @@ part 'src/data/slot/slot_animation.dart';
 part 'src/data/slot/slot_animation_frame.dart';
 
 part 'src/math/curve.dart';
-part 'src/math/tools.dart';
 part 'src/math/transform.dart';
 
 part 'src/skeleton/skeleton.dart';
