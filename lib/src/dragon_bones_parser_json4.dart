@@ -58,8 +58,8 @@ class _DragonBonesParserJson4 {
     var transform = _getTransform(data, "transform");
 
     if (type == "mesh") {
-      var vertices = _getFloat32List(data, "vertices", (v) => double.parse(v));
-      var uvs = _getFloat32List(data, "uvs", (v) => double.parse(v));
+      var vertices = _getFloat32List(data, "vertices", (v) => v.toDouble());
+      var uvs = _getFloat32List(data, "uvs", (v) => v.toDouble());
       var triangles = _getInt16List(data, "triangles", (v) => v);
       var edges = _getInt16List(data, "edges", (v) => v);
       return new Mesh(name, type, transform, vertices, uvs, triangles, edges);
@@ -123,7 +123,7 @@ class _DragonBonesParserJson4 {
   static MeshAnimationFrame _parseAnimationMeshFrame(Map data) {
     var duration = _getInt(data, "duration", 0);
     var offset = _getInt(data, "offset", 0);
-    var vertices = _getFloat32List(data, "vertices", (v) => double.parse(v));
+    var vertices = _getFloat32List(data, "vertices", (v) => v.toDouble());
     var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
     var curve = _getCurve(data, "curve");
     return new MeshAnimationFrame(duration, curve, easing, offset, vertices);
