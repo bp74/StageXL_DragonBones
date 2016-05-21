@@ -43,11 +43,7 @@ class SkeletonDisplayMesh extends SkeletonDisplay {
 
   @override
   void render(RenderState renderState) {
-
-    // TODO: add Free Form Deformation
-
     var renderTexture = this.renderTextureQuad.renderTexture;
-
     renderState.renderTextureMesh(renderTexture, ixList, vxList);
   }
 }
