@@ -4,6 +4,11 @@ This file contains highlights of what changes on each version of the
 StageXL_DragonBones package. This file is normally updated whenever 
 we push a new version to pub.
 
+## 0.2.1
+
+ * Simplified animation easing code.
+ * Support for DragonBones 4.6 export format changes.
+
 ## 0.2.0
  
  * Added support for meshes.
