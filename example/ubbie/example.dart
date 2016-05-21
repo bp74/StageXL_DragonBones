@@ -14,7 +14,7 @@ Future main() async {
   // init Stage and RenderLoop
 
   var canvas = html.querySelector('#stage');
-  var stage = new Stage(canvas, width: 800, height: 800);
+  var stage = new Stage(canvas, width: 1000, height: 1000);
   var renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
 
@@ -35,7 +35,7 @@ Future main() async {
   skeleton.setSkin(textureAtlas);
   skeleton.play("stand");
   skeleton.x = 350;
-  skeleton.y = 700;
+  skeleton.y = 800;
   skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);

@@ -14,28 +14,28 @@ Future main() async {
   // init Stage and RenderLoop
 
   var canvas = html.querySelector('#stage');
-  var stage = new Stage(canvas, width: 700, height: 800);
+  var stage = new Stage(canvas, width: 1500, height: 1500);
   var renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
 
   // load the skeleton resources
 
   var resourceManager = new ResourceManager();
-  resourceManager.addTextureAtlas("dragonTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
-  resourceManager.addTextFile("dragonJson", "assets/dragon_new.json");
+  resourceManager.addTextureAtlas("bicycleTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
+  resourceManager.addTextFile("bicycleJson", "assets/bicycle.json");
   await resourceManager.load();
 
-  // create a skeleton and play the "stand" animation
+  // create a skeleton and play the "steady2" animation
 
-  var textureAtlas = resourceManager.getTextureAtlas("dragonTexture");
-  var dragonBonesJson = resourceManager.getTextFile("dragonJson");
+  var textureAtlas = resourceManager.getTextureAtlas("bicycleTexture");
+  var dragonBonesJson = resourceManager.getTextFile("bicycleJson");
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-  var skeleton = dragonBones.createSkeleton("armatureName");
+  var skeleton = dragonBones.createSkeleton("Bicycle");
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("stand");
-  skeleton.x = 400;
-  skeleton.y = 650;
+  skeleton.play("bicycle");
+  skeleton.x = 750;
+  skeleton.y = 1400;
   skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
