@@ -1,0 +1,32 @@
+# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+targets:
+
+  $default:
+    sources:
+      {"exclude" : ["bin/**"]}
+    builders:
+      build_web_compilers|dart2js_archive_extractor:
+        options:
+          filter_outputs: false
+      build_web_compilers|entrypoint:
+        generate_for:
+          - example/bicycle/example.dart
+          - example/demon/example.dart
+          - example/dragon/example.dart
+          - example/dragon_new/example.dart
+          - example/swords_man/example.dart
+          - example/ubbie/example.dart
+        dev_options:
+          compiler: dartdevc
+        release_options:
+          compiler: dart2js
+          dart2js_args:
+           # See https://webdev.dartlang.org/tools/dart2js#size-and-speed-options
+           # - --dump-info
+            - --fast-startup
+            - --minify
+            - --no-frequency-based-minification
+            - --no-source-maps
+            - --show-package-warnings
+            - --trust-primitives
+            - --trust-type-annotations
