@@ -51,7 +51,7 @@ class SkeletonObjectAnimation {
     if (easing == 10.0) { // auto tween ?
       return value;
     } else if (easing > 1.0) { // ease in out
-      valueEase = 0.5 * (1.0 - math.cos(value * math.PI));
+      valueEase = 0.5 * (1.0 - math.cos(value * math.pi));
       easing -= 1.0;
     } else if (easing > 0.0) { // ease out
       valueEase = 1.0 - math.pow(1 - value, 2);

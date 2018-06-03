@@ -136,8 +136,8 @@ class _DragonBonesParserJson4 {
     var transform = new Transform();
     transform.x = _getDouble(value, "x", 0.0);
     transform.y = _getDouble(value, "y", 0.0);
-    transform.skewX = _getDouble(value, "skX", 0.0) * math.PI / 180.0;
-    transform.skewY = _getDouble(value, "skY", 0.0) * math.PI / 180.0;
+    transform.skewX = _getDouble(value, "skX", 0.0) * math.pi / 180.0;
+    transform.skewY = _getDouble(value, "skY", 0.0) * math.pi / 180.0;
     transform.scaleX = _getDouble(value, "scX", 1.0);
     transform.scaleY = _getDouble(value, "scY", 1.0);
     return transform;

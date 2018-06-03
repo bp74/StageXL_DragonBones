@@ -17,8 +17,8 @@ class DragonBones {
 
   //---------------------------------------------------------------------------
 
-  static DragonBones fromJson(String json) {
-    var data = JSON.decode(json);
+  static DragonBones fromJson(String jsonSource) {
+    var data = json.decode(jsonSource);
     var version = data["version"];
     if (version == "4.0") return _DragonBonesParserJson4.parse(data);
     if (version == "4.5") return _DragonBonesParserJson4.parse(data);
