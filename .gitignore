@@ -2,7 +2,7 @@
 .DS_Store
 .idea
 .packages
-.dart-tool
+.dart_tool/
 .pub/
 build/
 packages
