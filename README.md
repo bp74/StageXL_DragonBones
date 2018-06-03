@@ -7,6 +7,8 @@ DragonBones is an open source 2D skeleton animation solution very popular among 
 The editor is available for Mac and Windows and does not require Adobe Flash Pro.
 Find more information here: <https://dragonbones.github.io/>
 
+*NOTE:* as of version 0.3.0-dev, `StageXL_DragonBones` requires a Dart 2 SDK. 
+
 ##Examples
 
 http://www.stagexl.org/show/dragonbones/dragon/example.html
