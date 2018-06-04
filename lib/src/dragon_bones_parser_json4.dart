@@ -10,7 +10,7 @@ class _DragonBonesParserJson4 {
         _getString(data, "version", "0.0"),
         _getInt(data, "frameRate", 24),
         _getBool(data, "isGlobal", false),
-        _getList(data, "armature", _parseArmature));
+        _getList<Armature>(data, "armature", _parseArmature));
   }
 
   //---------------------------------------------------------------------------
@@ -18,10 +18,10 @@ class _DragonBonesParserJson4 {
   static Armature _parseArmature(Map data) {
     return new Armature(
         _getString(data, "name", ""),
-        _getList(data, "bone", _parseBone),
-        _getList(data, "slot", _parseSlot),
-        _getList(data, "skin", _parseSkin),
-        _getList(data, "animation", _parseAnimation));
+        _getList<Bone>(data, "bone", _parseBone),
+        _getList<Slot>(data, "slot", _parseSlot),
+        _getList<Skin>(data, "skin", _parseSkin),
+        _getList<Animation>(data, "animation", _parseAnimation));
   }
 
   static Bone _parseBone(Map data) {
@@ -43,13 +43,13 @@ class _DragonBonesParserJson4 {
   static Skin _parseSkin(Map data) {
     return new Skin(
         _getString(data, "name", ""),
-        _getList(data, "slot", _parseSkinSlot));
+        _getList<SkinSlot>(data, "slot", _parseSkinSlot));
   }
 
   static SkinSlot _parseSkinSlot(Map data) {
     return new SkinSlot(
         _getString(data, "name", ""),
-        _getList(data, "display", _parseDisplay));
+        _getList<Display>(data, "display", _parseDisplay));
   }
 
   static Display _parseDisplay(Map data) {
@@ -75,21 +75,21 @@ class _DragonBonesParserJson4 {
         _getString(data, "name", ""),
         _getInt(data, "duration", 0),
         _getInt(data, "playTimes", 0),
-        _getList(data, "bone", _parseAnimationBone),
-        _getList(data, "slot", _parseAnimationSlot),
-        _getList(data, "ffd", _parseAnimationMesh));
+        _getList<BoneAnimation>(data, "bone", _parseAnimationBone),
+        _getList<SlotAnimation>(data, "slot", _parseAnimationSlot),
+        _getList<MeshAnimation>(data, "ffd", _parseAnimationMesh));
   }
 
   static BoneAnimation _parseAnimationBone(Map data) {
     return new BoneAnimation(
         _getString(data, "name", ""),
-        _getList(data, "frame", _parseAnimationBoneFrame));
+        _getList<BoneAnimationFrame>(data, "frame", _parseAnimationBoneFrame));
   }
 
   static SlotAnimation _parseAnimationSlot(Map data) {
     return new SlotAnimation(
         _getString(data, "name", ""),
-        _getList(data, "frame", _parseAnimationSlotFrame));
+        _getList<SlotAnimationFrame>(data, "frame", _parseAnimationSlotFrame));
   }
 
   static MeshAnimation _parseAnimationMesh(Map data) {
@@ -97,7 +97,7 @@ class _DragonBonesParserJson4 {
         _getString(data, "name", ""),
         _getString(data, "slot", ""),
         _getString(data, "skin", ""),
-        _getList(data, "frame", _parseAnimationMeshFrame));
+        _getList<MeshAnimationFrame>(data, "frame", _parseAnimationMeshFrame));
   }
 
   static BoneAnimationFrame _parseAnimationBoneFrame(Map data) {
@@ -136,8 +136,8 @@ class _DragonBonesParserJson4 {
     var transform = new Transform();
     transform.x = _getDouble(value, "x", 0.0);
     transform.y = _getDouble(value, "y", 0.0);
-    transform.skewX = _getDouble(value, "skX", 0.0) * math.PI / 180.0;
-    transform.skewY = _getDouble(value, "skY", 0.0) * math.PI / 180.0;
+    transform.skewX = _getDouble(value, "skX", 0.0) * math.pi / 180.0;
+    transform.skewY = _getDouble(value, "skY", 0.0) * math.pi / 180.0;
     transform.scaleX = _getDouble(value, "scX", 1.0);
     transform.scaleY = _getDouble(value, "scY", 1.0);
     return transform;
@@ -170,20 +170,20 @@ class _DragonBonesParserJson4 {
     return colorTransform;
   }
 
-  static List _getList(Map data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] : new List();
-    return value.map(parser).toList(growable: false);
+  static List<T> _getList<T>(Map<String, dynamic> data, String key, parser) {
+    var value = data.containsKey(key) ? data[key] as List : new List();
+    return value.map<T>((result) => parser(result)).toList(growable: false);
   }
 
   static Int16List _getInt16List(Map data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] : new List();
-    var list = value.map(parser).toList(growable: false);
+    var value = data.containsKey(key) ? data[key] as List : new List();
+    var list = value.map<int>((result) => parser(result)).toList(growable: false);
     return new Int16List.fromList(list);
   }
 
   static Float32List _getFloat32List(Map data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] : new List();
-    var list = value.map(parser).toList(growable: false);
+    var value = data.containsKey(key) ? data[key] as List : new List();
+    var list = value.map<double>((result) => parser(result)).toList(growable: false);
     return new Float32List.fromList(list);
   }
 
