@@ -5,7 +5,7 @@ StageXL_DragonBones package. This file is normally updated whenever
 we push a new version to pub.
 
 ## 0.3.0
- * Raised dependency to StageXL 1.3.2-dev
+ * Raised dependency to StageXL 1.4.0
  * Ready for Dart 2.0
  
  ## 0.2.2
