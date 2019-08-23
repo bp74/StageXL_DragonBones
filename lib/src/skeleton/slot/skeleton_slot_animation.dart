@@ -2,7 +2,7 @@ part of stagexl_dragonbones;
 
 class SkeletonSlotAnimation extends SkeletonObjectAnimation {
 
-  final ColorTransform _colorTransform = new ColorTransform();
+  final ColorTransform _colorTransform = ColorTransform();
 
   SkeletonSlotAnimation(Animation animation, SlotAnimation slotAnimation)
       : super(animation, slotAnimation);

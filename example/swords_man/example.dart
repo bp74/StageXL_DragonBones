@@ -14,13 +14,13 @@ Future main() async {
   // init Stage and RenderLoop
 
   var canvas = html.querySelector('#stage');
-  var stage = new Stage(canvas, width: 900, height: 900);
-  var renderLoop = new RenderLoop();
+  var stage = Stage(canvas, width: 900, height: 900);
+  var renderLoop = RenderLoop();
   renderLoop.addStage(stage);
 
   // load the skeleton resources
 
-  var resourceManager = new ResourceManager();
+  var resourceManager = ResourceManager();
   resourceManager.addTextureAtlas("smTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
   resourceManager.addTextFile("smJson", "assets/swords_man.json");
   await resourceManager.load();

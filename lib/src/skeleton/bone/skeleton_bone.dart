@@ -4,13 +4,13 @@ class SkeletonBone extends SkeletonObject {
 
   final Bone bone;
   final SkeletonBone parent;
-  final Matrix worldMatrix = new Matrix.fromIdentity();
+  final Matrix worldMatrix = Matrix.fromIdentity();
   final List<SkeletonBoneAnimation> _boneAnimations;
 
-  final Transform transform  = new Transform();
+  final Transform transform  = Transform();
 
   SkeletonBone(this.bone, this.parent)
-      : _boneAnimations = new List<SkeletonBoneAnimation>();
+      : _boneAnimations = List<SkeletonBoneAnimation>();
 
   //---------------------------------------------------------------------------
 

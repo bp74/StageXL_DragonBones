@@ -22,7 +22,7 @@ class DragonBones {
     var version = data["version"];
     if (version == "4.0") return _DragonBonesParserJson4.parse(data);
     if (version == "4.5") return _DragonBonesParserJson4.parse(data);
-    throw new ArgumentError("Unsupported format.");
+    throw ArgumentError("Unsupported format.");
   }
 
   //---------------------------------------------------------------------------
@@ -38,8 +38,8 @@ class DragonBones {
 
   Skeleton createSkeleton(String armatureName) {
     var armature = this.getArmature(armatureName);
-    if (armature == null) throw new ArgumentError("armatureName");
-    return new Skeleton(armature, this.frameRate);
+    if (armature == null) throw ArgumentError("armatureName");
+    return Skeleton(armature, this.frameRate);
   }
 
 }

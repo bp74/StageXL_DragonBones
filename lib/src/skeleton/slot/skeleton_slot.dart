@@ -4,19 +4,19 @@ class SkeletonSlot extends SkeletonObject {
 
   final Slot slot;
   final SkeletonBone parent;
-  final Matrix worldMatrix = new Matrix.fromIdentity();
-  final List<SkeletonDisplay> displays = new List<SkeletonDisplay>();
+  final Matrix worldMatrix = Matrix.fromIdentity();
+  final List<SkeletonDisplay> displays = List<SkeletonDisplay>();
   final List<SkeletonSlotAnimation> _slotAnimations;
   final List<SkeletonDisplayMeshAnimation> _meshAnimations;
 
-  ColorTransform colorTransform = new ColorTransform();
+  ColorTransform colorTransform = ColorTransform();
   BlendMode blendMode = BlendMode.NORMAL;
-  SkeletonDisplay display = null;
+  SkeletonDisplay display;
   int displayIndex = 0;
 
   SkeletonSlot(this.slot, this.parent)
-      : _slotAnimations = new List<SkeletonSlotAnimation>(),
-        _meshAnimations = new List<SkeletonDisplayMeshAnimation>();
+      : _slotAnimations = List<SkeletonSlotAnimation>(),
+        _meshAnimations = List<SkeletonDisplayMeshAnimation>();
 
   //---------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ class SkeletonSlot extends SkeletonObject {
     }
 
     var displayMesh = display;
-    if (displayMesh is SkeletonDisplayMesh && _meshAnimations.length > 0) {
+    if (displayMesh is SkeletonDisplayMesh && _meshAnimations.isNotEmpty) {
       displayMesh.resetVertices();
       for (var animation in _meshAnimations) {
         animation.advanceFrameTime(deltaFrameTime);

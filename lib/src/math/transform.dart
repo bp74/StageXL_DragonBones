@@ -2,8 +2,8 @@ part of stagexl_dragonbones;
 
 class Transform {
 
-  final Float32List _data = new Float32List(6);
-  final Matrix _matrix = new Matrix.fromIdentity();
+  final Float32List _data = Float32List(6);
+  final Matrix _matrix = Matrix.fromIdentity();
   bool _refreshMatrix = true;
 
   Transform() {

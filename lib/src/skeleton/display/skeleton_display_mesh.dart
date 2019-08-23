@@ -7,7 +7,7 @@ class SkeletonDisplayMesh extends SkeletonDisplay {
   final Int16List ixList;
 
   SkeletonDisplayMesh(Mesh mesh, this.renderTextureQuad)
-      : this.vxList = new Float32List(mesh.vertices.length + mesh.uvs.length),
+      : this.vxList = Float32List(mesh.vertices.length + mesh.uvs.length),
         this.ixList = mesh.triangles,
         super(mesh) {
 

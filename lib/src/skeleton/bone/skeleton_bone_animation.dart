@@ -2,7 +2,7 @@ part of stagexl_dragonbones;
 
 class SkeletonBoneAnimation extends SkeletonObjectAnimation {
 
-  final Transform _transform = new Transform();
+  final Transform _transform = Transform();
 
   SkeletonBoneAnimation(Animation animation, BoneAnimation boneAnimation)
       : super(animation, boneAnimation);

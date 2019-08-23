@@ -5,7 +5,7 @@ class _DragonBonesParserJson4 {
   // Format: http://edn.egret.com/cn/index.php/article/index/id/338
 
   static DragonBones parse(Map data) {
-    return new DragonBones(
+    return DragonBones(
         _getString(data, "name", ""),
         _getString(data, "version", "0.0"),
         _getInt(data, "frameRate", 24),
@@ -16,7 +16,7 @@ class _DragonBonesParserJson4 {
   //---------------------------------------------------------------------------
 
   static Armature _parseArmature(Map data) {
-    return new Armature(
+    return Armature(
         _getString(data, "name", ""),
         _getList<Bone>(data, "bone", _parseBone),
         _getList<Slot>(data, "slot", _parseSlot),
@@ -25,7 +25,7 @@ class _DragonBonesParserJson4 {
   }
 
   static Bone _parseBone(Map data) {
-    return new Bone(
+    return Bone(
         _getString(data, "name", ""),
         _getString(data, "parent", ""),
         _getInt(data, "length", 0),
@@ -33,7 +33,7 @@ class _DragonBonesParserJson4 {
   }
 
   static Slot _parseSlot(Map data) {
-    return new Slot(
+    return Slot(
         _getString(data, "name", ""),
         _getString(data, "parent", null),
         _getInt(data, "displayIndex", 0),
@@ -41,13 +41,13 @@ class _DragonBonesParserJson4 {
   }
 
   static Skin _parseSkin(Map data) {
-    return new Skin(
+    return Skin(
         _getString(data, "name", ""),
         _getList<SkinSlot>(data, "slot", _parseSkinSlot));
   }
 
   static SkinSlot _parseSkinSlot(Map data) {
-    return new SkinSlot(
+    return SkinSlot(
         _getString(data, "name", ""),
         _getList<Display>(data, "display", _parseDisplay));
   }
@@ -62,16 +62,16 @@ class _DragonBonesParserJson4 {
       var uvs = _getFloat32List(data, "uvs", (v) => v.toDouble());
       var triangles = _getInt16List(data, "triangles", (v) => v);
       var edges = _getInt16List(data, "edges", (v) => v);
-      return new Mesh(name, type, transform, vertices, uvs, triangles, edges);
+      return Mesh(name, type, transform, vertices, uvs, triangles, edges);
     } else {
-      return new Display(name, type, transform);
+      return Display(name, type, transform);
     }
   }
 
   //---------------------------------------------------------------------------
 
   static Animation _parseAnimation(Map data) {
-    return new Animation(
+    return Animation(
         _getString(data, "name", ""),
         _getInt(data, "duration", 0),
         _getInt(data, "playTimes", 0),
@@ -81,19 +81,19 @@ class _DragonBonesParserJson4 {
   }
 
   static BoneAnimation _parseAnimationBone(Map data) {
-    return new BoneAnimation(
+    return BoneAnimation(
         _getString(data, "name", ""),
         _getList<BoneAnimationFrame>(data, "frame", _parseAnimationBoneFrame));
   }
 
   static SlotAnimation _parseAnimationSlot(Map data) {
-    return new SlotAnimation(
+    return SlotAnimation(
         _getString(data, "name", ""),
         _getList<SlotAnimationFrame>(data, "frame", _parseAnimationSlotFrame));
   }
 
   static MeshAnimation _parseAnimationMesh(Map data) {
-    return new MeshAnimation(
+    return MeshAnimation(
         _getString(data, "name", ""),
         _getString(data, "slot", ""),
         _getString(data, "skin", ""),
@@ -105,7 +105,7 @@ class _DragonBonesParserJson4 {
     var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
     var transform = _getTransform(data, "transform");
     var curve = _getCurve(data, "curve");
-    return new BoneAnimationFrame(duration, curve, easing, transform);
+    return BoneAnimationFrame(duration, curve, easing, transform);
   }
 
   static SlotAnimationFrame _parseAnimationSlotFrame(Map data) {
@@ -115,7 +115,7 @@ class _DragonBonesParserJson4 {
     var zOrder = _getInt(data, "z", 0);
     var colorTransform = _getColorTransform(data, "color");
     var curve = _getCurve(data, "curve");
-    return new SlotAnimationFrame(
+    return SlotAnimationFrame(
         duration, curve, easing,
         colorTransform, displayIndex, zOrder);
   }
@@ -126,14 +126,14 @@ class _DragonBonesParserJson4 {
     var vertices = _getFloat32List(data, "vertices", (v) => v.toDouble());
     var easing = _getDoubleOrNull(data, "tweenEasing", 10.0);
     var curve = _getCurve(data, "curve");
-    return new MeshAnimationFrame(duration, curve, easing, offset, vertices);
+    return MeshAnimationFrame(duration, curve, easing, offset, vertices);
   }
 
   //---------------------------------------------------------------------------
 
   static Transform _getTransform(Map data, String key) {
-    var value = data.containsKey(key) ? data[key] : new Map();
-    var transform = new Transform();
+    var value = data.containsKey(key) ? data[key] : Map();
+    var transform = Transform();
     transform.x = _getDouble(value, "x", 0.0);
     transform.y = _getDouble(value, "y", 0.0);
     transform.skewX = _getDouble(value, "skX", 0.0) * math.pi / 180.0;
@@ -150,15 +150,15 @@ class _DragonBonesParserJson4 {
       var y1 = value[1].toDouble();
       var x2 = value[2].toDouble();
       var y2 = value[3].toDouble();
-      return new Curve(x1, y1, x2, y2);
+      return Curve(x1, y1, x2, y2);
     } else {
       return null;
     }
   }
 
   static ColorTransform _getColorTransform(Map data, String key) {
-    var value = data.containsKey(key) ? data[key] : new Map();
-    var colorTransform = new ColorTransform();
+    var value = data.containsKey(key) ? data[key] :  Map();
+    var colorTransform = ColorTransform();
     colorTransform.alphaOffset = _getInt(value, "aO", 0);
     colorTransform.redOffset = _getInt(value, "rO", 0);
     colorTransform.greenOffset = _getInt(value, "gO", 0);
@@ -171,20 +171,20 @@ class _DragonBonesParserJson4 {
   }
 
   static List<T> _getList<T>(Map<String, dynamic> data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] as List : new List();
+    var value = data.containsKey(key) ? data[key] as List : List();
     return value.map<T>((result) => parser(result)).toList(growable: false);
   }
 
   static Int16List _getInt16List(Map data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] as List : new List();
+    var value = data.containsKey(key) ? data[key] as List : List();
     var list = value.map<int>((result) => parser(result)).toList(growable: false);
-    return new Int16List.fromList(list);
+    return Int16List.fromList(list);
   }
 
   static Float32List _getFloat32List(Map data, String key, parser) {
-    var value = data.containsKey(key) ? data[key] as List : new List();
+    var value = data.containsKey(key) ? data[key] as List : List();
     var list = value.map<double>((result) => parser(result)).toList(growable: false);
-    return new Float32List.fromList(list);
+    return Float32List.fromList(list);
   }
 
   //---------------------------------------------------------------------------
@@ -192,26 +192,26 @@ class _DragonBonesParserJson4 {
   static String _getString(Map data, String key, String defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
     if (value is String) return value;
-    throw new StateError("Invalid type for key '$key'");
+    throw StateError("Invalid type for key '$key'");
   }
 
   static int _getInt(Map data, String key, int defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
     if (value is int) return value;
-    throw new StateError("Invalid type for key '$key'");
+    throw StateError("Invalid type for key '$key'");
   }
 
   static double _getDoubleOrNull(Map data, String key, double defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
     if (value is num) return value.toDouble();
     if (value == null) return null;
-    throw new StateError("Invalid type for key '$key'");
+    throw StateError("Invalid type for key '$key'");
   }
 
   static double _getDouble(Map data, String key, double defaultValue) {
     var value = data.containsKey(key) ? data[key] : defaultValue;
     if (value is num) return value.toDouble();
-    throw new StateError("Invalid type for key '$key'");
+    throw StateError("Invalid type for key '$key'");
   }
 
   static bool _getBool(Map data, String key, bool defaultValue) {
@@ -219,7 +219,7 @@ class _DragonBonesParserJson4 {
     if (value is bool) return value;
     if (value == 0 || value == "false") return false;
     if (value == 1 || value == "true") return true;
-    throw new StateError("Invalid type for key '$key'");
+    throw StateError("Invalid type for key '$key'");
   }
 
 }

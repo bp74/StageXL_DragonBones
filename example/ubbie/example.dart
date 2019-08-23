@@ -14,13 +14,13 @@ Future main() async {
   // init Stage and RenderLoop
 
   var canvas = html.querySelector('#stage');
-  var stage = new Stage(canvas, width: 1000, height: 1000);
-  var renderLoop = new RenderLoop();
+  var stage = Stage(canvas, width: 1000, height: 1000);
+  var renderLoop = RenderLoop();
   renderLoop.addStage(stage);
 
   // load the skeleton resources
 
-  var resourceManager = new ResourceManager();
+  var resourceManager = ResourceManager();
   resourceManager.addTextureAtlas("dragonTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
   resourceManager.addTextFile("dragonJson", "assets/ubbie.json");
   await resourceManager.load();

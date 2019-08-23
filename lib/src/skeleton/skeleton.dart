@@ -4,8 +4,8 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   final Armature armature;
 
-  final List<SkeletonBone> _skeletonBones = new List<SkeletonBone>();
-  final List<SkeletonSlot> _skeletonSlots = new List<SkeletonSlot>();
+  final List<SkeletonBone> _skeletonBones = List<SkeletonBone>();
+  final List<SkeletonSlot> _skeletonSlots = List<SkeletonSlot>();
 
   int frameRate = 24;
   bool showBones = false;
@@ -17,21 +17,21 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   Skeleton(this.armature, this.frameRate) {
 
-    var map = new Map<String, SkeletonBone>();
+    var map = Map<String, SkeletonBone>();
 
     // this assumes that armature bones are sorted by depth
     // otherwise the parents of the skeletonBones are wrong.
 
     for (var bone in armature.bones) {
       var parent = map.containsKey(bone.parent) ? map[bone.parent] : null;
-      var skeletonBone = new SkeletonBone(bone, parent);
+      var skeletonBone = SkeletonBone(bone, parent);
       map[bone.name] = skeletonBone;
       _skeletonBones.add(skeletonBone);
     }
 
     for (var slot in armature.slots) {
       var parent = map.containsKey(slot.parent) ? map[slot.parent] : null;
-      var skeletonSlot = new SkeletonSlot(slot, parent);
+      var skeletonSlot = SkeletonSlot(slot, parent);
       _skeletonSlots.add(skeletonSlot);
     }
   }
@@ -58,7 +58,7 @@ class Skeleton extends InteractiveObject implements Animatable {
   void setSkin(TextureAtlas textureAtlas, [String skinName = ""]) {
 
     var skin = this.armature.getSkin(skinName);
-    if (skin == null) throw new ArgumentError("skinName");
+    if (skin == null) throw ArgumentError("skinName");
 
     _skin = skin;
 
@@ -70,15 +70,15 @@ class Skeleton extends InteractiveObject implements Animatable {
         if (display.type == "image") {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
-          var sd = new SkeletonDisplayImage(display, renderTextureQuad);
+          var sd = SkeletonDisplayImage(display, renderTextureQuad);
           skeletonSlot.displays.add(sd);
         } else if (display.type == "mesh") {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
-          var sd = new SkeletonDisplayMesh(display, renderTextureQuad);
+          var sd = SkeletonDisplayMesh(display, renderTextureQuad);
           skeletonSlot.displays.add(sd);
         } else if (display.type == "armature") {
-          var sd = new SkeletonDisplayArmature(display);
+          var sd = SkeletonDisplayArmature(display);
           skeletonSlot.displays.add(sd);
         }
       }
@@ -90,13 +90,13 @@ class Skeleton extends InteractiveObject implements Animatable {
   void play(String animationName) {
 
     var animation = this.armature.getAnimation(animationName);
-    if (animation == null) throw new ArgumentError("animationName");
+    if (animation == null) throw ArgumentError("animationName");
 
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
       var boneAnimation = animation.getBoneAnimation(boneName);
       if (boneAnimation == null) continue;
-      var sa = new SkeletonBoneAnimation(animation, boneAnimation);
+      var sa = SkeletonBoneAnimation(animation, boneAnimation);
       skeletonBone.addSkeletonBoneAnimation(sa);
     }
 
@@ -104,7 +104,7 @@ class Skeleton extends InteractiveObject implements Animatable {
       var slotName = skeletonSlot.slot.name;
       var slotAnimation = animation.getSlotAnimation(slotName);
       if (slotAnimation == null) continue;
-      var sa = new SkeletonSlotAnimation(animation, slotAnimation);
+      var sa = SkeletonSlotAnimation(animation, slotAnimation);
       skeletonSlot.addSkeletonSlotAnimation(sa);
     }
 
@@ -113,7 +113,7 @@ class Skeleton extends InteractiveObject implements Animatable {
       var skinName = _skin?.name;
       var meshAnimation = animation.getMeshAnimation(slotName, skinName);
       if (meshAnimation == null) continue;
-      var sa = new SkeletonDisplayMeshAnimation(animation, meshAnimation);
+      var sa = SkeletonDisplayMeshAnimation(animation, meshAnimation);
       skeletonSlot.addSkeletonMeshAnimation(sa);
     }
 
@@ -123,20 +123,20 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   @override
   Rectangle<num> get bounds {
-    // TODO implement bounds
-    return new Rectangle<num>(0.0, 0.0, 0.0 ,0.0);
+    // implement bounds
+    return Rectangle<num>(0.0, 0.0, 0.0 ,0.0);
   }
 
   @override
   DisplayObject hitTestInput(num localX, num localY) {
-    // TODO implement hitTestInput
+    // implement hitTestInput
     return null;
   }
 
   @override
   void render(RenderState renderState) {
 
-    // TODO: correct implementation of colorTransform for slots
+    // implement  colorTransform for slots
 
     if (showSlots) {
       for (var skeletonSlot in _skeletonSlots) {
