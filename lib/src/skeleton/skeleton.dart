@@ -1,11 +1,10 @@
 part of stagexl_dragonbones;
 
 class Skeleton extends InteractiveObject implements Animatable {
-
   final Armature armature;
 
-  final List<SkeletonBone> _skeletonBones = List<SkeletonBone>();
-  final List<SkeletonSlot> _skeletonSlots = List<SkeletonSlot>();
+  final List<SkeletonBone> _skeletonBones = <SkeletonBone>[];
+  final List<SkeletonSlot> _skeletonSlots = <SkeletonSlot>[];
 
   int frameRate = 24;
   bool showBones = false;
@@ -16,8 +15,7 @@ class Skeleton extends InteractiveObject implements Animatable {
   //---------------------------------------------------------------------------
 
   Skeleton(this.armature, this.frameRate) {
-
-    var map = Map<String, SkeletonBone>();
+    var map = <String, SkeletonBone>{};
 
     // this assumes that armature bones are sorted by depth
     // otherwise the parents of the skeletonBones are wrong.
@@ -38,9 +36,9 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   //---------------------------------------------------------------------------
 
+  @override
   bool advanceTime(num deltaTime) {
-
-    double deltaFrameTime = deltaTime.toDouble() * frameRate;
+    var deltaFrameTime = deltaTime.toDouble() * frameRate;
 
     for (var skeletonBone in _skeletonBones) {
       skeletonBone.advanceFrameTime(deltaFrameTime);
@@ -55,10 +53,9 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   //---------------------------------------------------------------------------
 
-  void setSkin(TextureAtlas textureAtlas, [String skinName = ""]) {
-
-    var skin = this.armature.getSkin(skinName);
-    if (skin == null) throw ArgumentError("skinName");
+  void setSkin(TextureAtlas textureAtlas, [String skinName = '']) {
+    var skin = armature.getSkin(skinName);
+    if (skin == null) throw ArgumentError('skinName');
 
     _skin = skin;
 
@@ -67,17 +64,17 @@ class Skeleton extends InteractiveObject implements Animatable {
       var skinSlot = skin.getSkinSlot(skeletonSlot.slot.name);
       if (skinSlot == null) continue;
       for (var display in skinSlot.displays) {
-        if (display.type == "image") {
+        if (display.type == 'image') {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
           var sd = SkeletonDisplayImage(display, renderTextureQuad);
           skeletonSlot.displays.add(sd);
-        } else if (display.type == "mesh") {
+        } else if (display.type == 'mesh') {
           var bitmapData = textureAtlas.getBitmapData(display.name);
           var renderTextureQuad = bitmapData.renderTextureQuad;
           var sd = SkeletonDisplayMesh(display, renderTextureQuad);
           skeletonSlot.displays.add(sd);
-        } else if (display.type == "armature") {
+        } else if (display.type == 'armature') {
           var sd = SkeletonDisplayArmature(display);
           skeletonSlot.displays.add(sd);
         }
@@ -88,9 +85,8 @@ class Skeleton extends InteractiveObject implements Animatable {
   //---------------------------------------------------------------------------
 
   void play(String animationName) {
-
-    var animation = this.armature.getAnimation(animationName);
-    if (animation == null) throw ArgumentError("animationName");
+    var animation = armature.getAnimation(animationName);
+    if (animation == null) throw ArgumentError('animationName');
 
     for (var skeletonBone in _skeletonBones) {
       var boneName = skeletonBone.bone.name;
@@ -116,7 +112,6 @@ class Skeleton extends InteractiveObject implements Animatable {
       var sa = SkeletonDisplayMeshAnimation(animation, meshAnimation);
       skeletonSlot.addSkeletonMeshAnimation(sa);
     }
-
   }
 
   //---------------------------------------------------------------------------
@@ -124,7 +119,7 @@ class Skeleton extends InteractiveObject implements Animatable {
   @override
   Rectangle<num> get bounds {
     // implement bounds
-    return Rectangle<num>(0.0, 0.0, 0.0 ,0.0);
+    return Rectangle<num>(0.0, 0.0, 0.0, 0.0);
   }
 
   @override
@@ -135,7 +130,6 @@ class Skeleton extends InteractiveObject implements Animatable {
 
   @override
   void render(RenderState renderState) {
-
     // implement  colorTransform for slots
 
     if (showSlots) {
@@ -164,6 +158,4 @@ class Skeleton extends InteractiveObject implements Animatable {
       }
     }
   }
-
 }
-

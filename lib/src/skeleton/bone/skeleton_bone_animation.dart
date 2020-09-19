@@ -1,7 +1,6 @@
 part of stagexl_dragonbones;
 
 class SkeletonBoneAnimation extends SkeletonObjectAnimation {
-
   final Transform _transform = Transform();
 
   SkeletonBoneAnimation(Animation animation, BoneAnimation boneAnimation)
@@ -10,9 +9,7 @@ class SkeletonBoneAnimation extends SkeletonObjectAnimation {
   //---------------------------------------------------------------------------
 
   void update(SkeletonBone skeletonBone) {
-
     if (_frameIndex != null) {
-
       var frames = animationObject.frames;
       var progress = _frameProgress;
       var index0 = _frameIndex;
@@ -20,12 +17,11 @@ class SkeletonBoneAnimation extends SkeletonObjectAnimation {
 
       BoneAnimationFrame frame0 = frames[index0];
       BoneAnimationFrame frame1 = frames[index1];
-      Transform transform0 = frame0.transform;
-      Transform transform1 = frame1.transform;
+      var transform0 = frame0.transform;
+      var transform1 = frame1.transform;
 
       _transform.interpolate(transform0, transform1, progress);
       skeletonBone.transform.concat(_transform);
     }
   }
-
 }

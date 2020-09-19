@@ -1,7 +1,6 @@
 part of stagexl_dragonbones;
 
 class SkeletonSlotAnimation extends SkeletonObjectAnimation {
-
   final ColorTransform _colorTransform = ColorTransform();
 
   SkeletonSlotAnimation(Animation animation, SlotAnimation slotAnimation)
@@ -10,9 +9,7 @@ class SkeletonSlotAnimation extends SkeletonObjectAnimation {
   //---------------------------------------------------------------------------
 
   void update(SkeletonSlot skeletonSlot) {
-
     if (_frameIndex != null) {
-
       var frames = animationObject.frames;
       var progress = _frameProgress;
       var index0 = _frameIndex;
@@ -20,13 +17,12 @@ class SkeletonSlotAnimation extends SkeletonObjectAnimation {
 
       SlotAnimationFrame frame0 = frames[index0];
       SlotAnimationFrame frame1 = frames[index1];
-      ColorTransform transform0 = frame0.colorTransform;
-      ColorTransform transform1 = frame1.colorTransform;
+      var transform0 = frame0.colorTransform;
+      var transform1 = frame1.colorTransform;
 
       _colorTransform.interpolate(transform0, transform1, progress);
       skeletonSlot.colorTransform.concat(_colorTransform);
       skeletonSlot.displayIndex = frame0.displayIndex;
     }
   }
-
 }

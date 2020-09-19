@@ -1,7 +1,6 @@
 part of stagexl_dragonbones;
 
 class SkeletonObjectAnimation {
-
   final Animation animation;
   final AnimationObject animationObject;
 
@@ -14,7 +13,6 @@ class SkeletonObjectAnimation {
   //---------------------------------------------------------------------------
 
   void advanceFrameTime(double deltaFrameTime) {
-
     _frameTime += deltaFrameTime;
     _frameProgress = 0.0;
     _frameIndex = null;
@@ -45,23 +43,24 @@ class SkeletonObjectAnimation {
   //---------------------------------------------------------------------------
 
   double _getEaseValue(double value, double easing) {
+    var valueEase = 1.0;
 
-    double valueEase = 1.0;
-
-    if (easing == 10.0) { // auto tween ?
+    if (easing == 10.0) {
+      // auto tween ?
       return value;
-    } else if (easing > 1.0) { // ease in out
+    } else if (easing > 1.0) {
+      // ease in out
       valueEase = 0.5 * (1.0 - math.cos(value * math.pi));
       easing -= 1.0;
-    } else if (easing > 0.0) { // ease out
+    } else if (easing > 0.0) {
+      // ease out
       valueEase = 1.0 - math.pow(1 - value, 2);
-    } else if (easing < 0.0) { // ease in
+    } else if (easing < 0.0) {
+      // ease in
       easing *= -1.0;
       valueEase = math.pow(value, 2.0);
     }
 
     return (valueEase - value) * easing + value;
   }
-
-
 }

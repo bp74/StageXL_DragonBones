@@ -4,7 +4,6 @@ import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_dragonbones/stagexl_dragonbones.dart';
 
 Future main() async {
-
   // configure StageXL default options
 
   StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
@@ -21,24 +20,23 @@ Future main() async {
   // load the skeleton resources
 
   var resourceManager = ResourceManager();
-  resourceManager.addTextureAtlas("smTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
-  resourceManager.addTextFile("smJson", "assets/swords_man.json");
+  resourceManager.addTextureAtlas(
+      'smTexture', 'assets/texture.json', TextureAtlasFormat.STARLINGJSON);
+  resourceManager.addTextFile('smJson', 'assets/swords_man.json');
   await resourceManager.load();
 
   // create a skeleton and play the "steady2" animation
 
-  var textureAtlas = resourceManager.getTextureAtlas("smTexture");
-  var dragonBonesJson = resourceManager.getTextFile("smJson");
+  var textureAtlas = resourceManager.getTextureAtlas('smTexture');
+  var dragonBonesJson = resourceManager.getTextFile('smJson');
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-  var skeleton = dragonBones.createSkeleton("Swordsman");
+  var skeleton = dragonBones.createSkeleton('Swordsman');
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("steady2");
+  skeleton.play('steady2');
   skeleton.x = 500;
   skeleton.y = 750;
   skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
-
 }
-

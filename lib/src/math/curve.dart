@@ -5,7 +5,6 @@ part of stagexl_dragonbones;
 /// Example: http://cubic-bezier.com/
 
 class Curve {
-
   final double x0 = 0.0;
   final double y0 = 0.0;
   final double x1;
@@ -18,11 +17,10 @@ class Curve {
   final Float32List _values = Float32List(20);
 
   Curve(this.x1, this.y1, this.x2, this.y2) {
+    if (x1 < 0.0 || x1 > 1.0) throw RangeError.value(x1, 'x1');
+    if (x2 < 0.0 || x2 > 1.0) throw RangeError.value(x2, 'x2');
 
-    if (x1 < 0.0 || x1 > 1.0) throw RangeError.value(x1, "x1");
-    if (x2 < 0.0 || x2 > 1.0) throw RangeError.value(x2, "x2");
-
-    for(int i = 0; i < _values.length; i++) {
+    for (var i = 0; i < _values.length; i++) {
       _values[i] = _getValue(i / (_values.length - 1));
     }
   }
@@ -55,7 +53,6 @@ class Curve {
   //---------------------------------------------------------------------------
 
   double _getValue(double x) {
-
     // http://www.flong.com/texts/code/shapers_bez/
 
     var a = 1.0 * x3 - 3.0 * x2 + 3.0 * x1 - 1.0 * x0;
@@ -69,7 +66,7 @@ class Curve {
     var refinementIterations = 5;
     var t = x;
 
-    for (int i = 0; i < refinementIterations; i++) {
+    for (var i = 0; i < refinementIterations; i++) {
       var u = t * (t * (t * a + b) + c) + d;
       var s = t * (t * a * 3.0 + b * 2.0) + c;
       if (s == 0.0) break;
@@ -87,6 +84,4 @@ class Curve {
 
     return t * (t * (t * a + b) + c) + d;
   }
-
 }
-

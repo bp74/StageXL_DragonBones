@@ -4,7 +4,6 @@ import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_dragonbones/stagexl_dragonbones.dart';
 
 Future main() async {
-
   // configure StageXL default options
 
   StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
@@ -21,24 +20,23 @@ Future main() async {
   // load the skeleton resources
 
   var resourceManager = ResourceManager();
-  resourceManager.addTextureAtlas("dragonTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
-  resourceManager.addTextFile("dragonJson", "assets/ubbie.json");
+  resourceManager.addTextureAtlas(
+      'dragonTexture', 'assets/texture.json', TextureAtlasFormat.STARLINGJSON);
+  resourceManager.addTextFile('dragonJson', 'assets/ubbie.json');
   await resourceManager.load();
 
   // create a skeleton and play the "walk" animation
 
-  var textureAtlas = resourceManager.getTextureAtlas("dragonTexture");
-  var dragonBonesJson = resourceManager.getTextFile("dragonJson");
+  var textureAtlas = resourceManager.getTextureAtlas('dragonTexture');
+  var dragonBonesJson = resourceManager.getTextFile('dragonJson');
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-  var skeleton = dragonBones.createSkeleton("ubbie");
+  var skeleton = dragonBones.createSkeleton('ubbie');
 
   skeleton.setSkin(textureAtlas);
-  skeleton.play("stand");
+  skeleton.play('stand');
   skeleton.x = 350;
   skeleton.y = 800;
   skeleton.showBones = false;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
-
 }
-

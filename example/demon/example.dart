@@ -4,7 +4,6 @@ import 'package:stagexl/stagexl.dart';
 import 'package:stagexl_dragonbones/stagexl_dragonbones.dart';
 
 Future main() async {
-
   // configure StageXL default options
 
   StageXL.stageOptions.renderEngine = RenderEngine.WebGL;
@@ -21,26 +20,25 @@ Future main() async {
   // load the skeleton resources
 
   var resourceManager = ResourceManager();
-  resourceManager.addTextureAtlas("demonTexture", "assets/texture.json", TextureAtlasFormat.STARLINGJSON);
-  resourceManager.addTextFile("demonJson", "assets/demon.json");
+  resourceManager.addTextureAtlas(
+      'demonTexture', 'assets/texture.json', TextureAtlasFormat.STARLINGJSON);
+  resourceManager.addTextFile('demonJson', 'assets/demon.json');
   await resourceManager.load();
 
   // create a skeleton and play the "run" animation
 
-  var textureAtlas = resourceManager.getTextureAtlas("demonTexture");
-  var dragonBonesJson = resourceManager.getTextFile("demonJson");
+  var textureAtlas = resourceManager.getTextureAtlas('demonTexture');
+  var dragonBonesJson = resourceManager.getTextFile('demonJson');
   var dragonBones = DragonBones.fromJson(dragonBonesJson);
-  var skeleton = dragonBones.createSkeleton("armatureName");
+  var skeleton = dragonBones.createSkeleton('armatureName');
 
   skeleton.setSkin(textureAtlas);
   //skeleton.play("run");
-  skeleton.play("uniqueAttack");
+  skeleton.play('uniqueAttack');
   skeleton.x = 450;
   skeleton.y = 620;
   skeleton.scaleX = skeleton.scaleY = 0.7;
   //skeleton.showBones = true;
   stage.juggler.add(skeleton);
   stage.addChild(skeleton);
-
 }
-

@@ -1,18 +1,17 @@
 part of stagexl_dragonbones;
 
 class Transform {
-
   final Float32List _data = Float32List(6);
   final Matrix _matrix = Matrix.fromIdentity();
   bool _refreshMatrix = true;
 
   Transform() {
-    this.x = 0.0;
-    this.y = 0.0;
-    this.skewX = 0.0;
-    this.skewY = 0.0;
-    this.scaleX = 1.0;
-    this.scaleY = 1.0;
+    x = 0.0;
+    y = 0.0;
+    skewX = 0.0;
+    skewY = 0.0;
+    scaleX = 1.0;
+    scaleY = 1.0;
   }
 
   //---------------------------------------------------------------------------
@@ -74,7 +73,6 @@ class Transform {
   /// The matrix based on the transformation values.
 
   Matrix get matrix {
-
     if (_refreshMatrix) {
       _matrix.a = 0.0 + scaleX * math.cos(skewY);
       _matrix.b = 0.0 + scaleX * math.sin(skewY);
@@ -139,8 +137,5 @@ class Transform {
 
   @override
   String toString() =>
-      "Transform x:$x, y:$y, "+
-      "skewX:$skewX, skewY:$skewY, "+
-      "scaleX:$scaleX, scaleY:$scaleY";
+      'Transform x:$x, y:$y, skewX:$skewX, skewY:$skewY, scaleX:$scaleX, scaleY:$scaleY';
 }
-

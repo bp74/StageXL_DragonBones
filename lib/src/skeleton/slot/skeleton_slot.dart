@@ -1,11 +1,10 @@
 part of stagexl_dragonbones;
 
 class SkeletonSlot extends SkeletonObject {
-
   final Slot slot;
   final SkeletonBone parent;
   final Matrix worldMatrix = Matrix.fromIdentity();
-  final List<SkeletonDisplay> displays = List<SkeletonDisplay>();
+  final List<SkeletonDisplay> displays = <SkeletonDisplay>[];
   final List<SkeletonSlotAnimation> _slotAnimations;
   final List<SkeletonDisplayMeshAnimation> _meshAnimations;
 
@@ -15,8 +14,8 @@ class SkeletonSlot extends SkeletonObject {
   int displayIndex = 0;
 
   SkeletonSlot(this.slot, this.parent)
-      : _slotAnimations = List<SkeletonSlotAnimation>(),
-        _meshAnimations = List<SkeletonDisplayMeshAnimation>();
+      : _slotAnimations = <SkeletonSlotAnimation>[],
+        _meshAnimations = <SkeletonDisplayMeshAnimation>[];
 
   //---------------------------------------------------------------------------
 
@@ -33,7 +32,6 @@ class SkeletonSlot extends SkeletonObject {
   //---------------------------------------------------------------------------
 
   void advanceFrameTime(double deltaFrameTime) {
-
     colorTransform.reset();
     displayIndex = slot.displayIndex;
 
@@ -58,7 +56,5 @@ class SkeletonSlot extends SkeletonObject {
         animation.update(displayMesh);
       }
     }
-
   }
-
 }

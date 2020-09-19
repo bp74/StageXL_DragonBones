@@ -1,7 +1,6 @@
 part of stagexl_dragonbones;
 
 class Armature {
-
   final String name;
   final List<Bone> bones;
   final List<Slot> slots;
@@ -13,7 +12,7 @@ class Armature {
   //---------------------------------------------------------------------------
 
   Animation getAnimation(String animationName) {
-    for (var animation in this.animations) {
+    for (var animation in animations) {
       if (animation.name == animationName) {
         return animation;
       }
@@ -22,7 +21,7 @@ class Armature {
   }
 
   Skin getSkin(String skinName) {
-    for (var skin in this.skins) {
+    for (var skin in skins) {
       if (skin.name == skinName) {
         return skin;
       }
@@ -34,5 +33,4 @@ class Armature {
 
   @override
   String toString() => "Armature '$name'";
-
 }
